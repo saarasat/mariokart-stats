@@ -1,0 +1,40 @@
+
+
+{% block body %}
+{{ error }}
+<h2>Create a new user</h2>
+<br>
+<form method="POST" action="{{ url_for('create_user')}}">
+  <table>
+      <tr>
+          <td>
+            {{ form.name.label }}
+          </td>
+          <td>
+            {{ form.name }}
+          </td>
+        </tr>
+    <tr>
+      <td>
+        {{ form.username.label }}
+      </td>
+      <td>
+        {{ form.username }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.password.label }}
+      </td>
+      <td>
+        {{ form.password }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Create" />
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

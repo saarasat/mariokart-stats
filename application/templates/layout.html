@@ -7,9 +7,17 @@
   
   <body>
     <h2>Mario Kart 64 Statistics</h2>
+    {% if current_user.is_authenticated %}
+    <p>
+      {{ current_user.name }} is logged in. <a href="{{ url_for('auth_logout')}}"> Log out</a>
+    </p>
+    {% else %}
+    <a href="{{ url_for('auth_login')}}">Login</a>
+    {% endif %}
+    
     <ul>
       <li><a href="{{ url_for('players_form') }}">Add a player</a></li>
-      <li><a href="{{ url_for('players_index') }}">List players</a></li>
+      <li><a href="{{ url_for('players_index') }}">List players</a></li> 
     </ul>
     
     {% block body %}

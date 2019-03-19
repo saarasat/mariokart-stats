@@ -5,5 +5,7 @@ class Player(db.Model):
   
     handle = db.Column(db.String(160), nullable=True)
 
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+
     def __init__(self, handle):
         self.handle = handle
