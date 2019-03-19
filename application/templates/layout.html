@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mario Kart Statistics</title>
+  </head>
+  
+  <body>
+    <ul>
+      <li><a href="{{ url_for('players_form') }}">Add a player</a></li>
+    </ul>
+    
+    {% block body %}
+    <p>
+      Content.
+    </p>
+    {% endblock %}
+  </body>
+</html>
