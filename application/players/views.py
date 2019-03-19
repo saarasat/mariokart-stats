@@ -4,7 +4,7 @@ from flask import render_template, request, redirect, url_for
 from application import app, db
 from application.players.models import Player
 
-@app.route("/players/", methods=["GET"])
+@app.route("/players", methods=["GET"])
 def players_index():
     return render_template("players/list.html", players=Player.query.all())
 
@@ -19,4 +19,5 @@ def players_create():
     db.session().add(p)
     db.session().commit()
 
-    return "heimoi"
+    return redirect(url_for("players_index"))
+

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Player</th>
+    </tr>
+    {% for player in players %}
+    <tr>
+      <td>{{ player.handle }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
