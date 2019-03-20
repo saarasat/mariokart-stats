@@ -21,19 +21,17 @@ def auth_login():
 
 
 
-@app.route("/auth/users", methods=["GET", "POST"])
+@app.route("/auth/users", methods=["GET","POST"])
 def create_user():
     if request.method == "GET":
         return render_template("auth/userform.html", form = UserForm())
-    
+
     form = UserForm(request.form)
-    
-    if not form.validate():
-        return render_template("auth/userform.html", form = form)
+    print(form)
 
-    u = User(form.name.data, form.username.data, form.password.data)
-
-    db.session().app(u)
+    u = User(name=form.name.data, username=form.username.data, password=form.password.data)
+    print(u)
+    db.session().add(u)
     db.session().commit()
 
     return redirect(url_for("auth_login"))
