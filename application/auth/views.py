@@ -27,10 +27,12 @@ def create_user():
         return render_template("auth/userform.html", form = UserForm())
 
     form = UserForm(request.form)
-    print(form)
+
+    if not form.validate():
+        return render_template("auth/userform.html", form = UserForm())
 
     u = User(name=form.name.data, username=form.username.data, password=form.password.data)
-    print(u)
+    
     db.session().add(u)
     db.session().commit()
 

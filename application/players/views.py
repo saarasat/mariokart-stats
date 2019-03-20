@@ -31,3 +31,23 @@ def players_create():
     db.session().commit()
 
     return redirect(url_for("players_index"))
+
+@app.route("/delete_player/<int:id>", methods=["POST"])
+@login_required
+def players_deleteone(id):
+    Player.query.filter_by(id=id).delete()
+    db.session.commit()
+
+    return redirect(url_for("players_index"))
+
+@app.route("/update_player/<int:id>", methods=["GET","POST"])
+@login_required
+def players_updateone(id):
+    player = Player.query.get(id)
+    if request.method == "GET":
+        return render_template("players/update.html", form = PlayerForm(), id=id, handle=player.handle)
+    form = PlayerForm(request.form)
+    player.handle = form.handle.data
+    db.session.commit()
+
+    return redirect(url_for("players_index"))

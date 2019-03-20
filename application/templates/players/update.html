@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h3>Update the player handle</h3>
+<form method="POST" action="{{ url_for('players_updateone', id=id) }}">
+  <table>
+    <tr>
+      <td>
+        Old handle:
+      </td>
+      <td>
+        {{handle}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        New handle:
+      </td>
+      <td>
+        {{ form.handle }}
+      </td>
+      <td>
+          <ul>
+            {% for error in form.handle.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Update handle"/>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}
