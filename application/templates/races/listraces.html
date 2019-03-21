@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <td><h3>Races</h3></td>
+    </tr>
+    <tr>
+      <td>
+        Placement
+      </td>
+      <td>
+        Finish time
+      </td>
+      <td>
+        Character
+      </td>
+      <td>
+        Track
+      </td>
+    </tr>
+    {% for race in races %}
+    <tr>
+      <td>{{ race.placement }}</td>
+      <td>{{ race.finish_time }}</td>
+      <td>{{ race.character }}</td>
+      <td>{{ race.track }}</td>
+      <td>
+        <form action="{{url_for('races_deleteone', id=race.id)}}" method="POST">
+          <input type="submit" value="Delete" >
+        </form>  
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

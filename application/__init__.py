@@ -17,6 +17,12 @@ from application import views
 from application.players import models
 from application.players import views
 
+from application.races import models
+from application.races import views
+
+from application.tracks import models
+from application.tracks import views
+
 from application.auth import models
 from application.auth import views
 

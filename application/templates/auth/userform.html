@@ -1,5 +1,4 @@
 
-
 {% block body %}
 {{ error }}
 <h2>Create a new user</h2>
@@ -29,6 +28,20 @@
       <td>
         {{ form.password }}
       </td>
+      <td>
+          <ul>
+            {% for error in form.name.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+            {% for error in form.username.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+            {% for error in form.password.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+
+          </ul>
+        </td>
     </tr>
     <tr>
       <td colspan="2">

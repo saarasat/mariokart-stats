@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>tracks</th>
+    </tr>
+    <tr>
+      <td>
+        <form method="POST">
+          {{ form.csrf_token }}
+          {{ form.cup }}
+          {{ form.name }}
+          <input type="submit">
+        </form>
+      </td>
+    </tr>
+  </table>
+{% endblock %}

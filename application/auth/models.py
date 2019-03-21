@@ -5,15 +5,16 @@ class User(db.Model):
     __tablename__= "account"
 
     id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+    date_created = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=True)
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-                              onupdate=db.func.current_timestamp())
+                              onupdate=db.func.current_timestamp(), nullable=True)
 
     name = db.Column(db.String(150), nullable=False)
     username = db.Column(db.String(150), nullable=False)
     password = db.Column(db.String(150), nullable=False)
 
     players = db.relationship("Player", backref='account', lazy=True)
+    races = db.relationship("Race", backref='account', lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name

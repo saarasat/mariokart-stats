@@ -9,12 +9,12 @@ from application.players.forms import PlayerForm
 @app.route("/players", methods=["GET"])
 @login_required
 def players_index():
-    return render_template("players/list.html", players=Player.query.all())
+    return render_template("players/listplayers.html", players=Player.query.all())
 
 @app.route("/players/new/")
 @login_required
 def players_form():
-    return render_template("players/new.html", form = PlayerForm())
+    return render_template("players/newplayer.html", form = PlayerForm())
 
 @app.route("/players/", methods=["POST"])
 @login_required
@@ -22,7 +22,7 @@ def players_create():
     form = PlayerForm(request.form)
 
     if not form.validate():
-        return render_template("players/new.html", form = form)
+        return render_template("players/newplayer.html", form = form)
         
     p = Player(form.handle.data)
     p.account_id = current_user.id
@@ -45,7 +45,7 @@ def players_deleteone(id):
 def players_updateone(id):
     player = Player.query.get(id)
     if request.method == "GET":
-        return render_template("players/update.html", form = PlayerForm(), id=id, handle=player.handle)
+        return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle)
     form = PlayerForm(request.form)
     player.handle = form.handle.data
     db.session.commit()

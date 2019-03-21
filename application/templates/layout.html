@@ -8,17 +8,45 @@
   <body>
     <h2>Mario Kart 64 Statistics</h2>
     {% if current_user.is_authenticated %}
+    <table>
+      <tr>
+        <td>
+          <form action="{{ url_for('races_create')}}">
+            <input type="submit" value="Add a race" />
+          </form>
+        </td>
+        <td>
+          <form action="{{ url_for('players_form')}}">
+            <input type="submit" value="Add a player" />
+          </form>
+        </td>
+        <td>
+          <form action="{{ url_for('players_index')}}">
+            <input type="submit" value="List players" />
+          </form>
+        </td>
+        <td>
+          <form action="{{ url_for('tracks_index')}}">
+            <input type="submit" value="List tracks" />
+          </form>         
+        </td>
+        <td>
+          <form action="{{ url_for('races_index')}}">
+            <input type="submit" value="List races" />
+          </form>         
+        </td>       
+  
+      </tr>
+    </table>
     <p>
       {{ current_user.name }} is logged in. <a href="{{ url_for('auth_logout')}}"> Log out</a>
     </p>
+
+
     {% else %}
     <a href="{{ url_for('auth_login')}}">Login</a>
+    <a href="{{ url_for('create_user')}}">Create an account</a>
     {% endif %}
-    
-    <ul>
-      <li><a href="{{ url_for('players_form') }}">Add a player</a></li>
-      <li><a href="{{ url_for('players_index') }}">List players</a></li> 
-    </ul>
     
     {% block body %}
     <p>
