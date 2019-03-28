@@ -1,7 +1,7 @@
 from application import db
+from application.models import Base
 
-class Character(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Character(Base):
   
     name = db.Column(db.String(160), nullable=False)
         

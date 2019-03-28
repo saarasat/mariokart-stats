@@ -9,13 +9,13 @@
     <tr>
       <td>{{ player.handle }}</td>
       <td>
-        <form action="{{url_for('players_deleteone', id=player.id)}}" method="POST">
-          <input type="submit" value="Delete" >
+        <form action="{{url_for('players_updateone', id=player.id)}}" method="GET">
+          <input class="btn btn-secondary btn-sm" type="submit" value="Update" >
         </form>  
       </td>
       <td>
-        <form action="{{url_for('players_updateone', id=player.id)}}" method="GET">
-          <input type="submit" value="Update" >
+        <form action="{{url_for('players_deleteone', id=player.id)}}" method="POST">
+          <input class="btn btn-danger btn-sm" type="submit" value="Delete" >
         </form>  
       </td>
     </tr>

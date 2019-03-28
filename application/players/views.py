@@ -1,7 +1,6 @@
 
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-
 from application import app, db
 from application.players.models import Player
 from application.players.forms import PlayerForm

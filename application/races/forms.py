@@ -6,6 +6,7 @@ class RaceForm(FlaskForm):
     placement = IntegerField("Placement", [validators.InputRequired()])
     track = SelectField("Track", choices=[])
     character = SelectField("Character", choices=[])
+    player = SelectField("Player", choices=[])
 
     class Meta:
         csrf = False

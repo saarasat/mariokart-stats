@@ -1,4 +1,4 @@
-
+{% extends "layout.html" %}
 
 {% block body %}
 {{ error }}
@@ -6,6 +6,30 @@
 <br>
 <form method="POST" action="{{ url_for('races_create')}}">
   <table>
+    <tr>
+      <td>
+        {{ form.player.label }}
+      </td>
+      <td>
+        {{ form.player }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.track.label }}
+      </td>
+      <td>
+        {{ form.track }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.character.label }}
+      </td>
+      <td>
+        {{ form.character }}
+      </td>
+    </tr>
     <tr>
       <td>
         {{ form.placement.label }}
@@ -26,24 +50,8 @@
       </td>
     </tr>
     <tr>
-      <td>
-        {{ form.track.label }}
-      </td>
-      <td>
-        {{ form.track }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.character.label }}
-      </td>
-      <td>
-        {{ form.character }}
-      </td>
-    </tr>
-    <tr>
       <td colspan="2">
-        <input type="submit" value="Add" />
+        <input type="submit" class="btn btn-success btn-sm" value="Add a new race" />
       </td>
     </tr>
   </table>
