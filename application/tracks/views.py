@@ -8,7 +8,7 @@ from application.tracks.forms import TrackForm
 @app.route("/tracks", methods=["GET"])
 @login_required
 def tracks_index():
-    return render_template("tracks/list.html", tracks=Track.query.all())
+    return render_template("tracks/listtracks.html", tracks=Track.query.all())
 
 
 @app.route("/tracks", methods=["POST"])
@@ -18,7 +18,7 @@ def tracks_create():
     form = TrackForm(request.form)
 
     if not form.validate():
-        return render_template("tracks/list.html", tracks=Track.query.all(), form = TrackForm())
+        return render_template("tracks/listtracks.html", tracks=Track.query.all(), form = TrackForm())
 
     t = Track(name=form.name.data, cup=form.cup.data)
     t.account_id = current_user.id
