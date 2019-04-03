@@ -28,18 +28,3 @@ class Race(Base):
         self.character_id = character_id
 
 
-    @staticmethod
-    def find_placements_in_mushroom_cup():
-        stmt = text("SELECT placement, finish_time FROM Race "
-        "JOIN Track ON Track.id = Race.track_id"
-        "WHERE Track.cup = 'Mushroom Cup'"
-        "GROUP BY Track.name"
-        "SORT BY Race.placement")
-
-        res = db.engine.execute(stmt)
-
-        response = []
-        for row in res:
-            response.append({"placement":row[0], "finish_time":row[1]})
-        
-        return response

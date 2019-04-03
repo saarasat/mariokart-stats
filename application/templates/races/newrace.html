@@ -4,56 +4,60 @@
 {{ error }}
 <h2>Add a race</h2>
 <br>
-<form method="POST" action="{{ url_for('races_create')}}">
+<form method="POST" action="{{ url_for('races_create')}}">  
   <table>
-    <tr>
-      <td>
-        {{ form.player.label }}
-      </td>
-      <td>
-        {{ form.player }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.track.label }}
-      </td>
-      <td>
-        {{ form.track }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.character.label }}
-      </td>
-      <td>
-        {{ form.character }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.placement.label }}
-      </td>
-      <td>
-        {{ form.placement }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.finish_time.label }}
-      </td>
-      <td>
-        {{ form.finish_time }}
-      </td>
-      <td>
-        Add in form mm:ss 
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" class="btn btn-success btn-sm" value="Add a new race" />
-      </td>
-    </tr>
+    <div>
+      <tr>
+        <td>
+          {{form.player.label}}
+        </td>
+        <td>
+          <div class="form-group">
+          {{ form.player(class_='form-control')|safe }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.track.label }}
+        </td>
+        <td>
+          <div class="form-group">
+            {{ form.track(class_='form-control')|safe }}
+          </div>
+        </td>
+      <tr>
+        <td>
+          {{ form.character.label }}
+        </td>
+        <td>
+          <div class="form-group">
+            {{ form.character(class_='form-control')|safe }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.placement.label }}
+        </td>
+        <td>
+          <div class="form-group">
+            {{ form.placement(class_='form-control')|safe }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.finish_time.label }}
+        </td>
+        <td>
+          <label for="finish_time" class="sr-only">Username:</label>
+          <input type="text" class="form-control" id="finish_time" name="finish_time" placeholder="mm:ss">
+        </td>
+      </tr>
+    </div>
   </table>
+  <button type="submit" class="btn btn-primary">Add race</button>
 </form>
+
 {% endblock %}

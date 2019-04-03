@@ -3,30 +3,23 @@
 {% block body %}
 {{ error }}
 
-<br></br> 
-<form method="POST" action="{{ url_for('auth_login')}}">
-  <table>
-    <tr>
-      <td>
-        {{ form.username.label }}
-      </td>
-      <td>
-        {{ form.username }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.password.label }}
-      </td>
-      <td>
-        {{ form.password }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="Login" />
-      </td>
-    </tr>
-  </table>
+<form action="{{ url_for('auth_login')}}" method="POST" role="form">
+  {{ form.csrf }}
+    
+    <div class="form-group">
+      <center>
+      <h2>Please login</h2>
+      </center>
+      <br>
+      <label for="username" class="sr-only">Username:</label>
+      <input type="text" class="form-control" id="username" name="username" placeholder="Username">      
+      <label for="password" class="sr-only">Password:</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+    </div>
+      <br>	
+      <center>												   
+      <button type="submit" class="btn btn-success">Login</button>
+      </center>
 </form>
+
 {% endblock %}
