@@ -1,14 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  {% if tracks_played is defined %}
+  <h2>Tracks</h2>
+  <br>
   <table>
     <tr>
-      <th>Tracks</th>
+      <td><b>Tracks</b></td>
+      <td><b>Races played</b></td>
     </tr>
-    {% for track in tracks %}
     <tr>
-      <td>{{ track.name }}</td>
+      <td></td>
+    </tr>
+    {% for track in tracks_played %}
+    <tr>
+      <td>{{track.Track}}</td>
+      <td><center>{{track.Races}}</center></td>
     </tr>
     {% endfor %}
   </table>
-{% endblock %}
+  {% endif %}  
+  </div>
+  {% endblock %}

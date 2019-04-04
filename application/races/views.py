@@ -18,7 +18,7 @@ def races_index():
         track = Track.query.filter_by(id=race.track_id).first()
         race.track = track.name
     
-    return render_template("races/listraces.html", races=Race.query.all(), character_races=Character.find_the_character_with_most_races())
+    return render_template("races/listraces.html", races=Race.query.all())
 
 @app.route("/races/new/", methods=["GET", "POST"])
 @login_required
