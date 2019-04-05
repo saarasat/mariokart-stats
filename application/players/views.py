@@ -21,7 +21,6 @@ def players_create():
     form.character.choices = [(character.id, character.name) for character in Character.query.all()]
 
     firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
-    form.secondTrack.choices = [(track.id, track.name) for track in Track.query.all()]
 
     if request.method == "GET":
         return render_template("players/newplayer.html", form = form)
@@ -29,7 +28,6 @@ def players_create():
     firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
     character = Character.query.filter_by(id = form.character.data).first()
     character_id = character.id    
-    secondTrack = Track.query.filter_by(id = form.secondTrack.data).first()
 
     player = Player(handle=form.handle.data, character_id=character_id)
     
@@ -41,31 +39,7 @@ def players_create():
     firstTrack.favoriteTracks.append(player)
     db.session().commit()
 
-    secondTrack.favoriteTracks.append(player)
-    db.session().commit()
-
     return redirect(url_for("races_create"))
-
-@app.route("/secondtrack/<int:id>")
-def secondTrack(id):
-    print('id', id)
-    
-    tracks = []
-    tracksFiltered = Track.query.all()
-    track_not_wanted = Track.query.filter_by(id=id).first()
-    name = track_not_wanted.name
-    for track in tracksFiltered:
-        if track.id != id:
-            tracks.append(track)
-
-    trackArray = []
-    for track in tracks:
-        trackObj = {}
-        trackObj['id'] = track.id
-        trackObj['name'] = track.name
-        trackArray.append(trackObj)
-
-    return jsonify({'tracks' : trackArray})
 
 @app.route("/delete_player/<int:id>", methods=["POST"])
 @login_required

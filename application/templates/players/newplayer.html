@@ -29,34 +29,6 @@
         </td>
       </tr>
       <tr>
-        <td>Second favorite track</td>
-        <td>
-          <div class="form-group">
-            <select class="form-control" id="secondTrack" name="secondTrack">
-              <script>
-                let first_track_select = document.getElementById('firstTrack');
-                let second_track_select = document.getElementById('secondTrack')
-    
-                  first_track_select.onchange = function() {
-                  firstTrack = first_track_select.value;
-                        
-                    fetch('/secondtrack/'+firstTrack).then(function(response) {
-                            
-                      response.json().then(function(data) {
-                        let optionHTML = '';
-                          for (let track of data.tracks) {
-                            optionHTML += '<option value="'+ track.id + '">' + track.name + '</option>';
-                          }   
-                        second_track_select.innerHTML = optionHTML;
-                      });
-                    });
-                  }
-              </script>
-            </select>       
-          </div>
-        </td>
-      </tr>
-      <tr>
         <td>Favorite character</td>
         <td>
           <div class="form-group">
