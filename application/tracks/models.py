@@ -1,17 +1,17 @@
 from application import db
 from application.models import Base
 from sqlalchemy.sql import text
+from ..players.models import favoriteTracks
 
 class Track(Base):
       
     name = db.Column(db.String(160), nullable=False)
-    cup = db.Column(db.String(160), nullable=False)
+   
+    favoriteTracks = db.relationship('Player', secondary=favoriteTracks, backref=db.backref('tracks', lazy='dynamic'))
 
-    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
-
-    def __init__(self, name, cup):
+    def __init__(self, name):
         self.name = name
-        self.cup = cup
+        
 
     @staticmethod
     def how_many_times_tracks_played():

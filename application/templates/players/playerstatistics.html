@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  {% if races_played is defined %}
+  <h3>Player</h3>
+  <table>
+    {% for race in races_played %}
+    <tr>      
+      <td>{{race.Player}}</td>
+      <td>{{race.Races}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+{% endblock %}

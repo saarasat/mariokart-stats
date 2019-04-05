@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+
+  <div>
+    <h3>Search for player statistics</h3>
+    <br>
+    <form action="{{ url_for('player_statistics_search') }}" method="POST" role="form">
+      {{form.csrf}}
+      <div class="form-group" >
+      {{ form.handle(class_='form-control')|safe }}
+      </div>
+    <button type="submit" class="btn btn-success">Search</button>
+    </form>
+  </div>
+{% endblock %}

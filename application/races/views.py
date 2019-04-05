@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
-from application.races.models import Race, playersraces
+from application.races.models import Race
 from application.races.forms import RaceForm
 from application.character.models import Character
 from application.tracks.models import Track
@@ -30,28 +30,24 @@ def races_create():
 
     if request.method == "GET":
         return render_template("races/newrace.html", form = form)
- 
+
+    player = Player.query.filter_by(id = form.player.data).first()
     track = Track.query.filter_by(id = form.track.data).first()
     character = Character.query.filter_by(id = form.character.data).first()
-    player = Player.query.filter_by(id = form.player.data).first()
   
     finish_time = form.finish_time.data
     placement = form.placement.data
+    player_id = player.id
     track_id = track.id
     character_id = character.id
-    player_id = player.id 
-
-    race = Race(finish_time=finish_time, placement=placement, track_id=track_id, character_id=character_id)
+ 
+    race = Race(finish_time=finish_time, placement=placement, player_id=player_id, track_id=track_id, character_id=character_id)
     race.account_id = current_user.id
 
     db.session().add(race)
     db.session().commit()
 
-    player.playersraces.append(race)
-
-    db.session().commit()
-
-    return redirect(url_for("races_index"))
+    return render_template("races/moreplayers.html")
 
 @app.route("/delete_race/<int:id>", methods=["POST"])
 @login_required

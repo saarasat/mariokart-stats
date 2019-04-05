@@ -20,7 +20,7 @@
               <a class="nav-link" href="{{ url_for('races_create')}} ">Add a race</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('players_form')}} ">Add a player</a>
+              <a class="nav-link" href="{{ url_for('players_create')}} ">Add a player</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('players_index')}} ">List players</a>
@@ -31,6 +31,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('races_index')}} ">List races</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('player_statistics_search')}} ">Player statistics</a>
+            </li>  
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth_logout')}} ">Log out</a>
             </li>

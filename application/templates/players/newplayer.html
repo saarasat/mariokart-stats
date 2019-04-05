@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<h2>Add a new player</h2>
+<br>
 <form action="{{ url_for('players_create') }}" method="POST" role="form">
   {{ form.csrf }}
     <ul>
@@ -8,14 +10,61 @@
         <li>{{ error }}</li>
       {% endfor %}
     </ul>
-  
-
-  <div class="form-group">
-    <h2>Add a new player</h2>
-    <br>
-    <label for="handle" class="sr-only">Player Handle</label>
-    <input type="text" class="form-control" id="handle" name="handle" placeholder="Handle">      
-  </div>  													   
-  <button type="submit" class="btn btn-success">Add player</button>
+    <table>
+      <tr>
+        <td>Player handle</td>
+        <td>
+          <div class="form-group">  
+            <label for="handle" class="sr-only">Player Handle</label>
+            <input type="text" class="form-control" id="handle" name="handle" placeholder="Handle">      
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>First favorite track</td>
+        <td>  
+          <div class="form-group">
+            {{ form.firstTrack(class_='form-control')|safe }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Second favorite track</td>
+        <td>
+          <div class="form-group">
+            <select class="form-control" id="secondTrack" name="secondTrack">
+              <script>
+                let first_track_select = document.getElementById('firstTrack');
+                let second_track_select = document.getElementById('secondTrack')
+    
+                  first_track_select.onchange = function() {
+                  firstTrack = first_track_select.value;
+                        
+                    fetch('/secondtrack/'+firstTrack).then(function(response) {
+                            
+                      response.json().then(function(data) {
+                        let optionHTML = '';
+                          for (let track of data.tracks) {
+                            optionHTML += '<option value="'+ track.id + '">' + track.name + '</option>';
+                          }   
+                        second_track_select.innerHTML = optionHTML;
+                      });
+                    });
+                  }
+              </script>
+            </select>       
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Favorite character</td>
+        <td>
+          <div class="form-group">
+            {{ form.character(class_='form-control')|safe }}
+          </div>
+        </td>
+      </tr>
+    </table>
+    <button type="submit" class="btn btn-success">Add player</button>
 </form>
 {% endblock %}
