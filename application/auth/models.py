@@ -1,5 +1,7 @@
 from application import db
 from application.models import Base
+from sqlalchemy.orm import relationship, backref
+
 
 class User(Base):
 
@@ -28,3 +30,6 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+    
+    def roles(self):
+        return ["ADMIN"]

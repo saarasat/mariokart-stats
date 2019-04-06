@@ -11,14 +11,14 @@ from application.players.models import Player
 @app.route("/races", methods=["GET"])
 @login_required
 def races_index():
-    races = Race.query.all()
+    races = Race.query.filter_by(account_id = current_user.id).all()
     for race in races:
         character = Character.query.filter_by(id=race.character_id).first()
         race.character = character.name
         track = Track.query.filter_by(id=race.track_id).first()
         race.track = track.name
     
-    return render_template("races/listraces.html", races=Race.query.all())
+    return render_template("races/listraces.html", races=races)
 
 @app.route("/races/new/", methods=["GET", "POST"])
 @login_required
@@ -26,7 +26,7 @@ def races_create():
     form = RaceForm(request.form)
     form.track.choices = [(track.id, track.name) for track in Track.query.all()]
     form.character.choices = [(character.id, character.name) for character in Character.query.all()]
-    form.player.choices = [(player.id, player.handle) for player in Player.query.all()]
+    form.player.choices = [(player.id, player.handle) for player in Player.query.filter_by(account_id = current_user.id).all()]
 
     if request.method == "GET":
         return render_template("races/newrace.html", form = form)

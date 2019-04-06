@@ -19,8 +19,6 @@ def auth_login():
     login_user(user)
     return redirect(url_for("index"))
 
-
-
 @app.route("/auth/users", methods=["GET","POST"])
 def create_user():
     form = UserForm()

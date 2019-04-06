@@ -4,10 +4,14 @@
   {% if races_played is defined %}
   <h3>Player</h3>
   <table>
+    <tr>
+      <td><b>Player</b></td>
+      <td><b>Races played</b></td>
+    </tr> 
     {% for race in races_played %}
     <tr>      
       <td>{{race.Player}}</td>
-      <td>{{race.Races}}</td>
+      <td><center>{{race.Races}}</center></td>
     </tr>
     {% endfor %}
   </table>

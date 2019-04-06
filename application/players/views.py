@@ -1,19 +1,20 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for
-from flask_login import login_required, current_user
-from application import app, db
-from application.players.models import Player
+from flask_login import current_user
+from application import app, db, login_required
+from application.players.models import Player, favoriteTracks
 from application.players.forms import PlayerForm, SearchForm
 from application.character.models import Character
 from application.tracks.models import Track
 
 @app.route("/players", methods=["GET"])
-@login_required
+@login_required(role="ADMIN")
 def players_index():
-    return render_template("players/listplayers.html", players=Player.query.all())
+    players = Player.query.filter_by(account_id = current_user.id).all()
+    return render_template("players/listplayers.html", players=players)
 
 
 @app.route("/players/new/", methods=["POST", "GET"])
-@login_required
+@login_required(role="ADMIN")
 def players_create():
     form = PlayerForm(request.form)
     form.firstTrack.choices = [(track.id, track.name) for track in Track.query.all()]
@@ -46,6 +47,7 @@ def players_create():
     return redirect(url_for("races_create"))
 
 @app.route("/secondtrack/<int:id>")
+@login_required(role="ADMIN")
 def secondTrack(id):
     print('id', id)
     
@@ -67,15 +69,15 @@ def secondTrack(id):
     return jsonify({'tracks' : trackArray})
 
 @app.route("/delete_player/<int:id>", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def players_deleteone(id):
-    Player.query.filter_by(id=id).delete()
+    db.session.query(Player).filter_by(id=id).delete()
     db.session.commit()
 
     return redirect(url_for("players_index"))
 
 @app.route("/update_player/<int:id>", methods=["GET","POST"])
-@login_required
+@login_required(role="ADMIN")
 def players_updateone(id):
     player = Player.query.get(id)
     if request.method == "GET":
@@ -86,11 +88,13 @@ def players_updateone(id):
 
     return redirect(url_for("players_index"))
 
+
+
 @app.route("/statistics/", methods=["GET", "POST"])
-@login_required
+@login_required(role="ADMIN")
 def player_statistics_search():
     form = SearchForm(request.form)
-    form.handle.choices = [(player.id, player.handle) for player in Player.query.all()]
+    form.handle.choices = [(player.id, player.handle) for player in Player.query.filter_by(account_id=current_user.id).all()]
     if request.method == "GET":
         return render_template("players/statisticsSearch.html", form = form)
 
@@ -100,7 +104,7 @@ def player_statistics_search():
     return redirect(url_for("player_statistics", id=id))
 
 @app.route("/statistics/<int:id>", methods=["GET"])
-@login_required
+@login_required(role="ADMIN")
 def player_statistics(id):
    
-    return render_template("players/playerstatistics.html", players=Player.query.all(),  races_played=Player.how_many_races_played(id))
+    return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),  races_played=Player.how_many_races_played(id))

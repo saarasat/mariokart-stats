@@ -7,7 +7,7 @@ class Track(Base):
       
     name = db.Column(db.String(160), nullable=False)
    
-    favoriteTracks = db.relationship('Player', secondary=favoriteTracks, backref=db.backref('tracks', lazy='dynamic'))
+    favoriteTracks = db.relationship('Player', secondary=favoriteTracks, backref=db.backref('tracks', lazy='dynamic'), cascade="delete")
 
     def __init__(self, name):
         self.name = name
