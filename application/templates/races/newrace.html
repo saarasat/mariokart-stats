@@ -5,21 +5,9 @@
 <h2>Add a race</h2>
 <br>
 
-  <a data-toggle="collapse" href="#playerCreating" aria-expanded="false" aria-controls="collapseExample">
-    No player handle yet? Create a new handle here
-  </a>  
-  <div class="collapse" id="playerCreating">
-    <br>  
-    <form action="{{ url_for('players_create') }}" method="POST" role="form">
-      <div class="form-group">
-        <td>
-          <label for="handle" class="sr-only">New Player:</label>
-          <input type="text" class="form-control" id="handle" name="handle" placeholder="player">
-        </td>
-      </div>
-        <td><button type="submit" class="btn btn-success">Add new player</button></td>
-    </form> 
-  </div>
+<a href="{{ url_for('players_create')}}" >
+  No player handle yet? Create a new handle here
+</a>
 
 <form method="POST" action="{{ url_for('races_create')}}">  
   <br>
