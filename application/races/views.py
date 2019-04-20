@@ -17,6 +17,8 @@ def races_index():
         race.character = character.name
         track = Track.query.filter_by(id=race.track_id).first()
         race.track = track.name
+        player = Player.query.filter_by(id=race.player_id).first()
+        race.player = player.handle
     
     return render_template("races/listraces.html", races=races)
 

@@ -19,17 +19,30 @@ def auth_login():
     login_user(user)
     return redirect(url_for("index"))
 
-@app.route("/auth/users", methods=["GET","POST"])
+
+@app.route("/users/new/")
+def users_form():
+    return render_template("auth/userform.html", form = UserForm())
+
+
+@app.route("/users/", methods=["POST", "GET"])
 def create_user():
-    form = UserForm()
-    if request.method == "GET":
-        return render_template("auth/userform.html", form = form)
     
+    if request.method == "GET":
+        return render_template("auth/userform.html", form = UserForm())
+    
+    form = UserForm(request.form)
+
+
+    if not form.validate():
+        return render_template("auth/userform.html", form = form)
+
     user = User(name=form.name.data, username=form.username.data, password=form.password.data)
     db.session().add(user)
     db.session().commit()
 
     return redirect(url_for("auth_login"))
+
 
 @app.route("/auth/logout")
 def auth_logout():

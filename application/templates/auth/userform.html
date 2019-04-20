@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 {% block body %}
-{{ error }}
 
-<form action="{{ url_for('create_user')}}" method="POST" role="form">
-  {{ form.csrf }}
+
+<form method="POST" action="{{ url_for('create_user')}}">
+  
     <div class="form-group">
       <center>
         <h2>Create a new user</h2>
@@ -13,16 +13,28 @@
         <label for="name" class="sr-only">Name:</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Name">
       </div>
+      {% for error in form.name.errors %}
+      <li>{{ form.name.label }} {{ error }}</li>
+      <p></p>
+	    {% endfor %}
       <div class="form-group">
         Username:
         <label for="username" class="sr-only">Username:</label>
         <input type="text" class="form-control" id="username" name="username" placeholder="Username">
       </div>
+      {% for error in form.username.errors %}
+      <li>{{ form.username.label }} {{ error }}</li>
+      <p></p>
+	    {% endfor %}
       <div class="form-group">
         Password:
         <label for="password" class="sr-only">Password:</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-      </div> 
+      </div>
+      {% for error in form.password.errors %}
+      <li>{{ form.password.label }} {{ error }}</li>
+      <p></p>
+	    {% endfor %}
     </div>
       <center>												   
         <button type="submit" class="btn btn-success">Create an account</button>

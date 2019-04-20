@@ -1,24 +1,38 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>Players</th>
-    </tr>
-    {% for player in players %}
-    <tr>
-      <td>{{ player.handle }}</td>
-      <td>
-        <form action="{{url_for('players_updateone', id=player.id)}}" method="GET">
-          <input class="btn btn-secondary btn-sm" type="submit" value="Update" >
-        </form>  
-      </td>
-      <td>
-        <form action="{{url_for('players_deleteone', id=player.id)}}" method="POST">
-          <input class="btn btn-danger btn-sm" type="submit" value="Delete" >
-        </form>  
-      </td>
-    </tr>
+{{ error }}
+<h2>Players</h2>
+<br>
+<div class="table-responsive-md">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Player</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for player in players %}
+      <tr>
+        <th scope="row">{{ player.id }}</th>
+        <td>{{ player.handle}}</td>
+        <td>
+          <form action="{{url_for('players_updateone', id=player.id)}}" method="GET">
+            <input class="btn btn-secondary btn-sm" type="submit" value="Update" >
+          </form>  
+        </td>
+        <td>
+        <td>
+          <form action="{{url_for('players_deleteone', id=player.id)}}" method="POST">
+            <input class="btn btn-danger btn-sm" type="submit" value="Delete" >
+          </form>  
+        </td>    
+      </tr>
     {% endfor %}
+    </tbody>
   </table>
+</div>
 {% endblock %}

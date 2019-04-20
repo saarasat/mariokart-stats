@@ -1,20 +1,80 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  {% if races_played is defined %}
-  <h3>Player</h3>
-  <table>
-    <tr>
-      <td><b>Player</b></td>
-      <td><b>Races played</b></td>
-    </tr> 
-    {% for race in races_played %}
-    <tr>      
-      <td>{{race.Player}}</td>
-      <td><center>{{race.Races}}</center></td>
-    </tr>
-    {% endfor %}
-  </table>
+  
+  {% if info is defined %}
+    <div>
+    {% for player in info %}
+    <div class="p-3 mb-2 bg-info text-white">
+        <h3>Player: {{player.Player}}</h3>
+    </div>
+    <br>
+    <table>
+      <tr>
+        <td><b>Races played in total : {{player.Races}}</b></td>
+      </tr>
+      <tr>
+        <td><b>Favorite character : {{player.Character}}</b></td>
+      </tr>
+      {% endfor %}
+      {% if winning_character is defined %}
+      {% for character in winning_character %}
+      <tr>
+        <td><b>Played character: {{character.Character}}, {{character.Wins}} wins</b></td>
+      </tr>
+      {% endfor %}
+      {% endif %}    
+    </table>
+  </div>
+  {% endif %}
+  <br>
+
+  {% if tracks_played is defined %}
+  <h4>Tracks played in total</h4>
+  <br>
+  <div class="table-responsive-md">
+    <table class="table align-center">
+      <thead>
+        <tr>
+          <th scope="col">Track</th>
+          <th scope="col">Times played</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for track in tracks_played %}
+        <tr>
+          <td scope="row">{{track.Track}}</td>
+          <td>{{track.Races}}</td>    
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br>
   {% endif %}
 
+  {% if race_stats is defined %}
+  <h4>All played races</h4>
+  <br>
+  <div class="table-responsive-md">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Track</th>
+          <th scope="col">Placement</th>
+          <th scope="col">FinishTime</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for race in race_stats %}
+        <tr>
+          <td scope="row">{{race.Track}}</td>
+          <td>{{race.Placement}}</td>
+          <td>{{race.FinishTime}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
 {% endblock %}

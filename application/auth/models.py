@@ -7,9 +7,9 @@ class User(Base):
 
     __tablename__= "account"
 
-    name = db.Column(db.String(150), nullable=False)
-    username = db.Column(db.String(150), nullable=False)
-    password = db.Column(db.String(150), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(60), nullable=False)
 
     players = db.relationship("Player", backref='account', lazy=True)
     races = db.relationship("Race", backref='account', lazy=True)

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_login import current_user
+from sqlalchemy.sql import text
 from application import app, db, login_required
 from application.players.models import Player, favoriteTracks
 from application.players.forms import PlayerForm, SearchForm
@@ -71,6 +72,8 @@ def secondTrack(id):
 @app.route("/delete_player/<int:id>", methods=["POST"])
 @login_required(role="ADMIN")
 def players_deleteone(id):
+    stmt = text("DELETE FROM favoriteTracks WHERE player_id = :id").params(id=id)
+    db.engine.execute(stmt)
     db.session.query(Player).filter_by(id=id).delete()
     db.session.commit()
 
@@ -88,8 +91,6 @@ def players_updateone(id):
 
     return redirect(url_for("players_index"))
 
-
-
 @app.route("/statistics/", methods=["GET", "POST"])
 @login_required(role="ADMIN")
 def player_statistics_search():
@@ -106,5 +107,5 @@ def player_statistics_search():
 @app.route("/statistics/<int:id>", methods=["GET"])
 @login_required(role="ADMIN")
 def player_statistics(id):
-   
-    return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),  races_played=Player.how_many_races_played(id))
+    return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),
+    info=Player.basic_player_info(id), winning_character=Player.character_with_most_wins(id), tracks_played=Player.how_many_tracks_played(id), race_stats=Player.race_statistics(id))

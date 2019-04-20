@@ -1,24 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  {% if tracks_played is defined %}
-  <h2>Tracks</h2>
-  <br>
-  <table>
-    <tr>
-      <td><b>Tracks</b></td>
-      <td><b>Races played</b></td>
-    </tr>
-    <tr>
-      <td></td>
-    </tr>
-    {% for track in tracks_played %}
-    <tr>
-      <td>{{track.Track}}</td>
-      <td><center>{{track.Races}}</center></td>
-    </tr>
-    {% endfor %}
+<h2>Tracks</h2>
+<br>
+{% if tracks_played is defined %}
+<div class="table-responsive-md">
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Track</th>
+          <th scope="col">Times played</th>
+          <th scope="col">Fastest Time</th>
+          <th scope="col">Fastest player</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for track in tracks_played %}
+        <tr>
+          <td>{{ track.Track }}</td>
+          <td>{{ track.Races }}</td>
+          <td>{{ track.BestTime }}</td>
+          <td>{{ track.Player }}</td>
+        </tr>
+      {% endfor %}      
+      </tbody>
   </table>
-  {% endif %}  
-  </div>
-  {% endblock %}
+</div>
+{% endif %}
+{% endblock %}
