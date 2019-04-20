@@ -19,13 +19,14 @@ def players_index():
 def players_create():
     form = PlayerForm(request.form)
     form.firstTrack.choices = [(track.id, track.name) for track in Track.query.all()]
-    form.character.choices = [(character.id, character.name) for character in Character.query.all()]
-
-    firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
     form.secondTrack.choices = [(track.id, track.name) for track in Track.query.all()]
+    form.character.choices = [(character.id, character.name) for character in Character.query.all()]
 
     if request.method == "GET":
         return render_template("players/newplayer.html", form = form)
+
+    firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
+
 
     firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
     character = Character.query.filter_by(id = form.character.data).first()

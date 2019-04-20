@@ -16,7 +16,7 @@ class Player(Base):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     
-    favoriteTracks = db.relationship('Track', secondary=favoriteTracks, backref=db.backref('players', lazy='dynamic'))
+    favoriteTracks = db.relationship('Track', secondary=favoriteTracks, backref=db.backref('players'))
     character_id = db.Column(db.Integer, db.ForeignKey('character.id'), nullable=False)
 
     def __init__(self, handle, character_id):
