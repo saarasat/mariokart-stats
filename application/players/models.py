@@ -29,7 +29,8 @@ class Player(Base):
         " COUNT(Race.track_id) AS Races FROM Player"
         " JOIN Character ON Player.character_id = Character.id"
         " JOIN Race ON Player.id = Race.player_id"
-        " WHERE Player.id = :id").params(id=id)
+        " WHERE Player.id = :id"
+        " GROUP BY Player.handle").params(id=id)
         
         res = db.engine.execute(stmt)
 
@@ -80,6 +81,7 @@ class Player(Base):
         " Race.finish_time AS FinishTime, Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id"
+        " GROUP BY Track"
         " ORDER BY Race.placement").params(id=id)
         
         res = db.engine.execute(stmt)
