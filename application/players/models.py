@@ -81,7 +81,7 @@ class Player(Base):
         " Race.finish_time AS FinishTime, Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id"
-        " GROUP BY Track"
+        " GROUP BY Track, Race.finish_time, Race.placement"
         " ORDER BY Race.placement, Race.finish_time").params(id=id)
         
         res = db.engine.execute(stmt)
