@@ -46,7 +46,7 @@ class Player(Base):
         " COUNT(Race.id) AS Wins FROM Player"
         " JOIN Race ON Player.id = Race.player_id"
         " JOIN Character ON Race.character_id = Character.id"
-        " WHERE Player.id = :id & Race.placement = 1"
+        " WHERE Player.id = :id AND Race.placement = 1"
         " GROUP BY Character"
         " ORDER BY Wins DESC").params(id=id)
         
