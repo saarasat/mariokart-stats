@@ -8,7 +8,7 @@ from application.tracks.forms import TrackForm
 
 @app.route("/tracks", methods=["GET"])
 def tracks_index():
-    return render_template("tracks/listtracks.html", tracks=Track.query.all(), tracks_played=Track.how_many_times_tracks_played())
+    return render_template("tracks/listtracks.html", tracks=Track.query.all())
 
 
 @app.route("/tracks", methods=["POST"])
