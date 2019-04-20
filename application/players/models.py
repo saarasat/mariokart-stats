@@ -30,7 +30,7 @@ class Player(Base):
         " JOIN Character ON Player.character_id = Character.id"
         " JOIN Race ON Player.id = Race.player_id"
         " WHERE Player.id = :id"
-        " GROUP BY Player.handle").params(id=id)
+        " GROUP BY Player.handle, Character.name").params(id=id)
         
         res = db.engine.execute(stmt)
 
