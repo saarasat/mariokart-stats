@@ -20,8 +20,8 @@ class Track(Base):
         " Player.handle AS Player FROM Track" 
         " LEFT JOIN Race ON Track.id = Race.track_id "
         " LEFT JOIN Player ON Race.player_id = Player.id"
-        " GROUP BY Track.name ORDER BY Races, Player.handle"
-        " HAVING Player.handle")
+        " WHERE Player IS NOT NULL"
+        " GROUP BY Track.name ORDER BY Races, Player.handle")
         res = db.engine.execute(stmt)
 
         response = []
