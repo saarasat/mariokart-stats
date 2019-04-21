@@ -21,7 +21,7 @@ class Track(Base):
         " LEFT JOIN Race ON Track.id = Race.track_id "
         " LEFT JOIN Player ON Race.player_id = Player.id"
         " WHERE Player IS NOT NULL"
-        " GROUP BY Track.name ORDER BY Races, Player.handle")
+        " GROUP BY Track.name, Player.handle ORDER BY Races, Player.handle")
         res = db.engine.execute(stmt)
 
         response = []
