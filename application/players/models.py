@@ -94,7 +94,7 @@ class Player(Base):
     @staticmethod
     def find_favoriteTracks(id):
         stmt = text("SELECT Track.name FROM Track"
-        " JOIN favoriteTracks ON Track.id = favoriteTracks.track_id"
+        " LEFT JOIN favoriteTracks ON Track.id = favoriteTracks.track_id"
         " WHERE favoriteTracks.player_id = :id").params(id=id)
 
         res = db.engine.execute(stmt)
