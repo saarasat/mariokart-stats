@@ -11,10 +11,16 @@ from application.tracks.models import Track
 @login_required(role="ADMIN")
 def players_index():
     players = Player.query.filter_by(account_id = current_user.id).all()
-    return render_template("players/listplayers.html", players=players)
+    form = PlayerForm(request.form)
+    form.firstTrack.choices = [(track.id, track.name) for track in Track.query.all()]
+    form.secondTrack.choices = [(track.id, track.name) for track in Track.query.all()]
+    form.character.choices = [(character.id, character.name) for character in Character.query.all()]
+
+    if request.method == "GET":
+        return render_template("players/listplayers.html", players=players, form=form)
 
 
-@app.route("/players/new/", methods=["POST", "GET"])
+@app.route("/players", methods=["POST"])
 @login_required(role="ADMIN")
 def players_create():
     form = PlayerForm(request.form)
@@ -23,10 +29,7 @@ def players_create():
     form.character.choices = [(character.id, character.name) for character in Character.query.all()]
 
     if request.method == "GET":
-        return render_template("players/newplayer.html", form = form)
-
-    firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
-
+        return render_template("players/listplayers.html", form = form)
 
     firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
     character = Character.query.filter_by(id = form.character.data).first()
@@ -46,7 +49,7 @@ def players_create():
     secondTrack.favoriteTracks.append(player)
     db.session().commit()
 
-    return redirect(url_for("races_create"))
+    return redirect(url_for("players_index"))
 
 @app.route("/secondtrack/<int:id>")
 @login_required(role="ADMIN")
@@ -70,15 +73,23 @@ def secondTrack(id):
 
     return jsonify({'tracks' : trackArray})
 
-@app.route("/delete_player/<int:id>", methods=["POST"])
+@app.route("/delete_player/<int:id>", methods=["GET", "POST"])
 @login_required(role="ADMIN")
 def players_deleteone(id):
-    stmt = text("DELETE FROM favoriteTracks WHERE player_id = :id").params(id=id)
-    db.engine.execute(stmt)
+    player = Player.query.get(id)
+
+    if request.method == "GET":
+        return render_template("players/deletion.html", id=id, handle=player.handle)
+
+    stmtFavorite = text("DELETE FROM favoriteTracks WHERE player_id = :id").params(id=id)
+    db.engine.execute(stmtFavorite)
+    stmtRace = text("DELETE FROM Race WHERE player_id= :id").params(id=id)
+    db.engine.execute(stmtRace)
     db.session.query(Player).filter_by(id=id).delete()
     db.session.commit()
 
     return redirect(url_for("players_index"))
+
 
 @app.route("/update_player/<int:id>", methods=["GET","POST"])
 @login_required(role="ADMIN")
@@ -108,5 +119,8 @@ def player_statistics_search():
 @app.route("/statistics/<int:id>", methods=["GET"])
 @login_required(role="ADMIN")
 def player_statistics(id):
+
+
     return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),
-    info=Player.basic_player_info(id), winning_character=Player.character_with_most_wins(id), tracks_played=Player.how_many_tracks_played(id), race_stats=Player.race_statistics(id))
+    info=Player.basic_player_info(id), winning_character=Player.character_with_most_wins(id), favorite_tracks=Player.find_favoriteTracks(id),
+    tracks_played=Player.how_many_tracks_played(id), race_stats=Player.race_statistics(id))

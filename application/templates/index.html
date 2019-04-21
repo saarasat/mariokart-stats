@@ -2,6 +2,61 @@
 
 {% block body %}
 <p>
+  {% if current_user.is_authenticated %}
+  <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+        </div>
+      </header>
+    <main role="main" class="inner cover">
+      <h1 class="cover-heading">Welcome to Mario Kart Statistics!</h1>
+      <p class="lead">Simple tool for managing Mario Kart 64 racing records. Get started by adding some race results:</p>
+      <p class="lead">
+        <a href="{{ url_for('races_create')}}" class="btn btn-lg btn-primary">Start adding</a>
+
+      </p>
+    </main>
+  </div> 
+  {% if player_ranking is defined %}
+  <br>
+  <div class="container align-self-center">
+    <h3>Player ranking - most first places</h3>
+      <br>
+      <table class="col align-self-center">
+        {% for player in player_ranking %}        
+          <tr><td><h5>{{ player.Player }}</h5></td></tr>
+        {% endfor %}
+      </table>
+      
+  </div>
+  {% endif %}
+  </body>
+
+  {% else %}
+
+  <form action="{{ url_for('auth_login')}}" method="POST" role="form">
+      <div class="form-group">
+        <center>
+        <h2>Please login</h2>
+        </center>
+        <br>
+        <label for="username" class="sr-only">Username:</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username">      
+        <label for="password" class="sr-only">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+      </div>
+        <br>	
+        <center>												   
+        <button type="submit" class="btn btn-primary">Login</button>
+        </center>
+        <br>
+        <center><a  href="{{ url_for('users_form')}}" >Create a new account</a></center>
+    
+  </form>
+ 
+
+  {% endif %}
   
-</p>
 {% endblock %}
+

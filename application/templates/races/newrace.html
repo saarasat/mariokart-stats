@@ -2,7 +2,7 @@
 
 {% block body %}
 {{ error }}
-<h2>Add a race</h2>
+<h2>Add race results</h2>
 <br>
 
 <a href="{{ url_for('players_create')}}" >
@@ -22,7 +22,6 @@
           {{ form.player(class_='form-control')|safe }}
           </div>
         </td>
-
       </tr>
       <tr>
         <td>
@@ -63,8 +62,17 @@
         </td>
       </tr>
     </div>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success">Add race</button>
+        </div>
+      </td>
+    </tr>
   </table>
-  <button type="submit" class="btn btn-success">Add race</button>
+  <br>
 </form>
 
 {% endblock %}

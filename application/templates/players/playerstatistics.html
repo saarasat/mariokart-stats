@@ -5,22 +5,30 @@
   {% if info is defined %}
     <div>
     {% for player in info %}
-    <div class="p-3 mb-2 bg-info text-white">
-        <h3>Player: {{player.Player}}</h3>
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">Player: {{player.Player}}</h1>
+        <p class="lead"></p>
+        <p class="lead">
+        </p>
+      </main>
     </div>
     <br>
     <table>
       <tr>
-        <td><b>Races played in total : {{player.Races}}</b></td>
+        <td><h5>Races played in total : {{player.Races}}</h5></td>
       </tr>
       <tr>
-        <td><b>Favorite character : {{player.Character}}</b></td>
+        <td><h5>Favorite character : {{player.Character}}</h5></td>
       </tr>
       {% endfor %}
+      {% if favorite_tracks is defined %}
+        <td><h5>Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h5></td>
+      {% endif %}
+  
       {% if winning_character is defined %}
       {% for character in winning_character %}
       <tr>
-        <td><b>Played character: {{character.Character}}, {{character.Wins}} wins</b></td>
+        <td><h5>Played character: {{character.Character}}, {{character.Wins}} wins</h5></td>
       </tr>
       {% endfor %}
       {% endif %}    
@@ -28,23 +36,26 @@
   </div>
   {% endif %}
   <br>
+  <br>
 
   {% if tracks_played is defined %}
-  <h4>Tracks played in total</h4>
+  <h4>Results by track</h4>
   <br>
-  <div class="table-responsive-md">
+  <div class="table-responsive table-sm">
     <table class="table align-center">
       <thead>
         <tr>
           <th scope="col">Track</th>
           <th scope="col">Times played</th>
+          <th scope="col">Times won</th>
         </tr>
       </thead>
       <tbody>
         {% for track in tracks_played %}
         <tr>
           <td scope="row">{{track.Track}}</td>
-          <td>{{track.Races}}</td>    
+          <td>{{track.Races}}</td>
+          
         </tr>
         {% endfor %}
       </tbody>
@@ -54,9 +65,9 @@
   {% endif %}
 
   {% if race_stats is defined %}
-  <h4>All played races</h4>
+  <h4>All races</h4>
   <br>
-  <div class="table-responsive-md">
+  <div class="table-responsive table-sm">
     <table class="table">
       <thead>
         <tr>

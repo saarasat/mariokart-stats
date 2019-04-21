@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+
+  
+  <div>
+    <h4>Are you sure you want to permanently remove the player <b>{{handle}}</b> and all data related to it?</h4>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <form action="{{url_for('players_index')}}" method="GET">
+            <input class="btn btn-secondary" type="submit" value="No, don't delete it!" >
+          </form>
+        </td>
+        <td>
+          <form action="{{url_for('players_deleteone', id=id)}}" method="POST">
+            <input class="btn btn-danger" type="submit" value="Yes, delete it" >
+          </form> 
+        </td>
+      </tr>
+  </table>  
+  </div>
+{% endblock %}

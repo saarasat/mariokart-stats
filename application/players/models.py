@@ -55,7 +55,6 @@ class Player(Base):
         response = []
         for row in res:
             response.append({"Character":row[0], "Wins":row[1]})
-        print('response', response)
         return response
 
     @staticmethod
@@ -93,8 +92,38 @@ class Player(Base):
         return response
 
     @staticmethod
+    def find_favoriteTracks(id):
+        stmt = text("SELECT Track.name FROM Track"
+        " JOIN favoriteTracks ON Track.id = favoriteTracks.track_id"
+        " WHERE favoriteTracks.player_id = :id").params(id=id)
+
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"Track":row[0]})
+        print('response', response)
+
+        return response
+
+    @staticmethod
+    def player_ranking():
+        stmt = text("SELECT Player.handle, COUNT(Race.placement) AS Wins FROM Player"
+        " JOIN Race ON Player.id = Race.player_id"
+        " WHERE Race.placement = 1"
+        " GROUP BY Player.handle"
+        " ORDER BY Wins")
+
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"Player":row[0]})
+        print('response', response)
+
+        return response
+
+    @staticmethod
     def delete_player(id):
-        stmt = text("DELETE FROM favoriteTracks WHERE player_id = id")
+        stmt = text("DELETE FROM favoriteTracks WHERE player_id = :id").params(id=id)
         res = db.engine.execute(stmt)
 
         response = []
