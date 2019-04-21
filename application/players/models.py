@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 from sqlalchemy.orm import relationship, backref
 from application.races.models import Race
 
-favoriteTracks = db.Table('favoriteTracks',
+favoritetracks = db.Table('favoritetracks',
     db.Column('player_id', db.Integer, db.ForeignKey('player.id'), primary_key=True),
     db.Column('track_id', db.Integer, db.ForeignKey('track.id'), primary_key=True),
     db.PrimaryKeyConstraint('player_id', 'track_id')
@@ -16,7 +16,7 @@ class Player(Base):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     
-    favoriteTracks = db.relationship('Track', secondary=favoriteTracks, backref=db.backref('players'))
+    favoritetracks = db.relationship('Track', secondary=favoritetracks, backref=db.backref('players'))
     character_id = db.Column(db.Integer, db.ForeignKey('character.id'), nullable=False)
 
     def __init__(self, handle, character_id):
@@ -93,9 +93,11 @@ class Player(Base):
 
     @staticmethod
     def find_favoriteTracks(id):
+
+        
         stmt = text("SELECT Track.name FROM Track"
-        " LEFT JOIN favoriteTracks ON Track.id = favoriteTracks.track_id"
-        " WHERE favoriteTracks.player_id = :id").params(id=id)
+        " LEFT JOIN favoritetracks ON Track.id = favoritetracks.track_id"
+        " WHERE favoritetracks.player_id = :id").params(id=id)
 
         res = db.engine.execute(stmt)
         response = []
@@ -123,7 +125,7 @@ class Player(Base):
 
     @staticmethod
     def delete_player(id):
-        stmt = text("DELETE FROM favoriteTracks WHERE player_id = :id").params(id=id)
+        stmt = text("DELETE FROM favoritetracks WHERE player_id = :id").params(id=id)
         res = db.engine.execute(stmt)
 
         response = []

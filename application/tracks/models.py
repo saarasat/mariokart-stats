@@ -1,13 +1,13 @@
 from application import db
 from application.models import Base
 from sqlalchemy.sql import text
-from ..players.models import favoriteTracks, Player
+from ..players.models import favoritetracks, Player
 
 class Track(Base):
       
     name = db.Column(db.String(160), nullable=False)
    
-    favoriteTracks = db.relationship('Player', secondary=favoriteTracks, backref=db.backref('tracks', lazy='dynamic'))
+    favoritetracks = db.relationship('Player', secondary=favoritetracks, backref=db.backref('tracks', lazy='dynamic'))
 
     def __init__(self, name):
         self.name = name

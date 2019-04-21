@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_login import current_user
 from sqlalchemy.sql import text
 from application import app, db, login_required
-from application.players.models import Player, favoriteTracks
+from application.players.models import Player, favoritetracks
 from application.players.forms import PlayerForm, SearchForm
 from application.character.models import Character
 from application.tracks.models import Track
@@ -43,10 +43,10 @@ def players_create():
     db.session().add(player)
     db.session().commit()
 
-    firstTrack.favoriteTracks.append(player)
+    firstTrack.favoritetracks.append(player)
     db.session().commit()
 
-    secondTrack.favoriteTracks.append(player)
+    secondTrack.favoritetracks.append(player)
     db.session().commit()
 
     return redirect(url_for("players_index"))
@@ -81,7 +81,7 @@ def players_deleteone(id):
     if request.method == "GET":
         return render_template("players/deletion.html", id=id, handle=player.handle)
 
-    stmtFavorite = text("DELETE FROM favoriteTracks WHERE player_id = :id").params(id=id)
+    stmtFavorite = text("DELETE FROM favoritetracks WHERE player_id = :id").params(id=id)
     db.engine.execute(stmtFavorite)
     stmtRace = text("DELETE FROM Race WHERE player_id= :id").params(id=id)
     db.engine.execute(stmtRace)
