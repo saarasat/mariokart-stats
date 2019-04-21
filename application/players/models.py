@@ -41,6 +41,23 @@ class Player(Base):
         return response
 
     @staticmethod
+    def races_won(id):
+        stmt = text("SELECT SUM(Race.placement) AS Wins FROM Player"
+        " JOIN Race ON Player.id = Race.player_id"
+        " WHERE Race.placement = 1 AND Player.id = :id").params(id=id)
+        
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"Wins":row[0]})
+        
+        print('response', response)
+
+        return response
+
+
+    @staticmethod
     def character_with_most_wins(id):
         stmt = text("SELECT Character.name AS Character,"
         " COUNT(Race.id) AS Wins FROM Player"
@@ -61,7 +78,7 @@ class Player(Base):
     def how_many_tracks_played(id):
         stmt = text("SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
-        " WHERE player_id = :id"
+        " WHERE player_id = :id AND Race.placement = 1"
         " GROUP BY Track"
         " ORDER BY Races DESC").params(id=id)
         
@@ -77,17 +94,18 @@ class Player(Base):
     @staticmethod
     def race_statistics(id):
         stmt = text("SELECT Track.name AS Track,"
-        " Race.finish_time AS FinishTime, Race.placement AS Placement FROM Race"
+        " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
+        " JOIN Character ON Race.character_id = Character.id"
         " WHERE player_id = :id"
-        " GROUP BY Track, Race.finish_time, Race.placement"
+        " GROUP BY Track, Race.finish_time, Race.placement, Character.name"
         " ORDER BY Race.placement, Race.finish_time").params(id=id)
         
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append({"Track":row[0],"FinishTime":row[1], "Placement":row[2]})
+            response.append({"Track":row[0],"FinishTime":row[1], "Character":row[2], "Placement":row[3]})
 
         return response
 

@@ -17,29 +17,59 @@
       <tr>
         <td><h5>Races played in total : {{player.Races}}</h5></td>
       </tr>
+      {% if races_won is defined %}
+      {% for player in races_won%}
       <tr>
-        <td><h5>Favorite character : {{player.Character}}</h5></td>
+        <td><h5>Races won: {{player.Wins}}</h5></td>
       </tr>
       {% endfor %}
-      {% if favorite_tracks is defined %}
-        <td><h5>Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h5></td>
       {% endif %}
-  
-      {% if winning_character is defined %}
-      {% for character in winning_character %}
-      <tr>
-        <td><h5>Played character: {{character.Character}}, {{character.Wins}} wins</h5></td>
-      </tr>
-      {% endfor %}
-      {% endif %}    
     </table>
   </div>
-  {% endif %}
+
+  
   <br>
+  <br>
+  <div>
+      <h3>Results by character</h3>
+      <h5>Favorite character: {{player.Character}}</h5>
+  
+  <div class="table-responsive table-sm">
+      <table class="table align-center">
+        <thead>
+          <tr>
+            <th scope="col">Character</th>
+            <th scope="col">Times played</th>
+          </tr>
+        </thead>
+        {% if winning_character is defined %}
+ 
+        <tbody>
+          {% for character in winning_character %}
+          <tr>
+            <td scope="row">{{character.Character}}</td>
+            <td>{{character.Wins}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% endif %}    
+      </table>
+    </div>
+   
+ 
+    {% endfor %}
+    {% endif %}
+  </div>
   <br>
 
   {% if tracks_played is defined %}
-  <h4>Results by track</h4>
+
+
+  <h3>Results by track</h3>
+  {% if favorite_tracks is defined %}
+  <td><h5>Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h5></td>
+{% endif %}
+
   <br>
   <div class="table-responsive table-sm">
     <table class="table align-center">
@@ -47,7 +77,6 @@
         <tr>
           <th scope="col">Track</th>
           <th scope="col">Times played</th>
-          <th scope="col">Times won</th>
         </tr>
       </thead>
       <tbody>
@@ -73,6 +102,7 @@
         <tr>
           <th scope="col">Track</th>
           <th scope="col">Placement</th>
+          <th scope="col">Character</th>
           <th scope="col">FinishTime</th>
         </tr>
       </thead>
@@ -81,6 +111,7 @@
         <tr>
           <td scope="row">{{race.Track}}</td>
           <td>{{race.Placement}}</td>
+          <td>{{race.Character}}</td>
           <td>{{race.FinishTime}}</td>
         </tr>
         {% endfor %}

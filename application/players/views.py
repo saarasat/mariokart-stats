@@ -123,4 +123,4 @@ def player_statistics(id):
 
     return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),
     info=Player.basic_player_info(id), winning_character=Player.character_with_most_wins(id), favorite_tracks=Player.find_favoriteTracks(id),
-    tracks_played=Player.how_many_tracks_played(id), race_stats=Player.race_statistics(id))
+    tracks_played=Player.how_many_tracks_played(id), races_won=Player.races_won(id), race_stats=Player.race_statistics(id))
