@@ -9,70 +9,52 @@
   No player handle yet? Create a new handle here
 </a>
 
-<form method="POST" action="{{ url_for('races_create')}}">  
+<form action="{{ url_for('races_create')}}" method="POST" role="form">  
+  {{ form.csrf }}
   <br>
   <table>
-    <div>
-      <tr>
-        <td>
-          Handle
-        </td>
-        <td>
-          <div class="form-group">
-          {{ form.player(class_='form-control')|safe }}
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.track.label }}
-        </td>
-        <td>
-          <div class="form-group">
-            {{ form.track(class_='form-control')|safe }}
-          </div>
-        </td>
-      <tr>
-        <td>
-          {{ form.character.label }}
-        </td>
-        <td>
-          <div class="form-group">
-            {{ form.character(class_='form-control')|safe }}
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.placement.label }}
-        </td>
-        <td>
-          <div class="form-group">
-            {{ form.placement(class_='form-control')|safe }}
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.finish_time.label }}
-        </td>
-        <td>
-          <label for="finish_time" class="sr-only">Username:</label>
-          <input type="text" class="form-control" id="finish_time" name="finish_time" placeholder="mm:ss">
-        </td>
-      </tr>
-    </div>
     <tr>
-      <td>
-      </td>
+      <td>Handle</td>
       <td>
         <div class="form-group">
-          <button type="submit" class="btn btn-success">Add race</button>
+          {{ form.player(class_='form-control')|safe }}
         </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Track</td>
+      <td>
+        <div class="form-group">
+          {{ form.track(class_='form-control')|safe }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Character</td>
+      <td>
+        <div class="form-group">
+          {{ form.character(class_='form-control')|safe }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Placement</td>
+      <td>
+        <div class="form-group">
+          {{ form.placement(class_='form-control')|safe }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Finish time</td>
+      <td>
+        <label for="finish_time" class="sr-only">Username:</label>
+        <input type="text" class="form-control" id="finish_time" name="finish_time" placeholder="mm:ss">
       </td>
     </tr>
   </table>
   <br>
+  <button type="submit" class="btn btn-success">Add race</button>
 </form>
 
 {% endblock %}
