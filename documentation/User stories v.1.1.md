@@ -7,8 +7,9 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 1. Adding stats: As a scorekeeper I can insert the game statistics of a single race
 
-SQL (example):
 <pre>
+SQL (example):
+
 <code>"INSERT INTO race"
         " (date_created, date_modified, finish_time, placement," 
         " player_id, character_id, track_id, account_id) "
@@ -19,9 +20,9 @@ SQL (example):
 
 2. Removing stats: As a scorekeeper I can remove records of one or all races
 
+<pre>
 SQL (example):
 
-<pre>
 <code>"DELETE FROM race WHERE race.id = ?", (2);</code>
 </pre>
 
@@ -31,9 +32,9 @@ SQL (example):
 1. As a scorekeeper I can find out how many times each track has been played by my players
 2. As a scorekeeper I can find out what is the best finish time for a certain track 
 
+<pre>
 SQL for both 1 and 2:
 
-<pre>
 <code>"SELECT Track.name AS Track,"
         " COUNT(Race.track_id) AS Races,"
         " MIN(Race.finish_time) AS BestTime,"
@@ -48,9 +49,9 @@ SQL for both 1 and 2:
 
 1. As a scorekeeper I can search for all the races where a certain player has won
 
+<pre>
 SQL
 
-<pre>
 <code>"SELECT SUM(Race.placement) AS Wins FROM Player"
         " JOIN Race ON Player.id = Race.player_id"
         " WHERE Race.placement = 1 AND Player.id = :id").params(id=id)</code>
@@ -59,9 +60,9 @@ SQL
 
 2. As a scorekeeper I can search for all the races where a certain player was last
 
+<pre>
 SQL (included in this query in the actual application)
 
-<pre>
 <code>"SELECT Track.name AS Track,"
         " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
@@ -74,9 +75,9 @@ SQL (included in this query in the actual application)
 
 3. As a scorekeeper I can find out which has been the most successful character for a certain player (character with most first places)
 
+<pre>
 SQL
 
-<pre>
 <code>"SELECT Character.name AS Character,"
         " COUNT(Race.id) AS Wins FROM Player"
         " JOIN Race ON Player.id = Race.player_id"
@@ -89,9 +90,9 @@ SQL
 
 4. As a scorekeeper I can find out in which track a certain player has performed the best (most first places out of all tracks played)
 
+<pre>
 SQL
 
-<pre>
 <code>"SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id AND Race.placement = 1"
@@ -102,9 +103,9 @@ SQL
 
 5. As a scorekeeper I can find out how many times a certain player has played a single track
 
+<pre>
 SQL (included in this query in the actual application)
 
-<pre>
 "SELECT Track.name AS Track,"
         " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
