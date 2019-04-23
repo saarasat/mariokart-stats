@@ -22,6 +22,11 @@ Acts as a many-to-many association-table between player-table and track-table.
 ### 6. Race 
 Includes the main data of the app, the actual racing data. A single entry to this table includes the results of an individual race, in a single track by a single player.
 
+## Database schema
+
+![Database](https://github.com/saarasat/mariokart-stats/blob/master/documentation/Database%20schema%20-%20Mario%20Kart%20Statistics%20-v.3.0.png)
+
+
 ## SQL for creating the tables;
 
 **1. Account**
@@ -75,7 +80,6 @@ CREATE TABLE Track(
 </code></pre>
 
 **5. Favoritetracks**
-
 <pre><code>
 CREATE TABLE favoritetracks(
     player_id INTEGER,
@@ -87,7 +91,6 @@ CREATE TABLE favoritetracks(
 </code></pre>
 
 **6. Race**
-
 <pre><code>
 CREATE TABLE Race(
     id SERIAL,
