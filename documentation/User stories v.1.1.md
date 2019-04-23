@@ -64,7 +64,8 @@ SQL
 SQL (included in this query in the actual application)
 
 <code>"SELECT Track.name AS Track,"
-        " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
+        " Race.finish_time AS FinishTime, Character.name AS Character,"
+        " Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " JOIN Character ON Race.character_id = Character.id"
         " WHERE player_id = :id"
@@ -107,7 +108,8 @@ SQL
 SQL (included in this query in the actual application)
 
 "SELECT Track.name AS Track,"
-        " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
+        " Race.finish_time AS FinishTime, Character.name AS Character,"
+        " Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " JOIN Character ON Race.character_id = Character.id"
         " WHERE player_id = :id"
