@@ -3,60 +3,66 @@
 {% block body %}
 <p>
   {% if current_user.is_authenticated %}
-  <body class="text-center">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-        </div>
-      </header>
-    <main role="main" class="inner cover">
+    <main role="main">
+      <div class="jumbotron">
       <h1 class="cover-heading">Welcome to Mario Kart Statistics!</h1>
       <p class="lead">Simple tool for managing Mario Kart 64 racing records. Get started by adding some race results:</p>
       <p class="lead">
         <a href="{{ url_for('races_create')}}" class="btn btn-lg btn-primary">Start adding</a>
-
-      </p>
+      </div>
     </main>
-  </div> 
-  {% if player_ranking is defined %}
+     
   <br>
-  <div class="container align-self-center">
-    <h3>Player ranking - most first places</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Stats of all races</h3>
+        <p>
+          All race statistics listed with players, placements, tracks, finish times. 
+        </p>
+        <a class="btn btn-secondary" href="{{ url_for('races_index')}}" role="button">Check races</a>
+      </div>
+      <div class="col-md-4">
+          <h3>Stats of all tracks</h3>
+          <p>
+            All tracks with the times played, fastest times and fastest players.
+          </p>
+          <a class="btn btn-secondary" href="{{ url_for('tracks_index')}}" role="button">Check tracks</a>
+        </div>
+      <div class="col-md-4">
+          <h3>Stats by player</h3>
+          <p>
+            All statistics by player listed with favorite characters, tracks and times each have been played and won. 
+          </p>
+          <a class="btn btn-secondary" href="{{ url_for('players_statistics_search')}}" role="button">Check players</a>
+        </div>
+      </div>
       <br>
-      <table class="col align-self-center">
-        {% for player in player_ranking %}        
-          <tr><td><h5>{{ player.Player }}</h5></td></tr>
-        {% endfor %}
-      </table>
       
   </div>
-  {% endif %}
-  </body>
-
-  {% else %}
-
-  <form action="{{ url_for('auth_login')}}" method="POST" role="form">
-      <div class="form-group">
-        <center>
-        <h2>Please login</h2>
-        </center>
-        <br>
-        <label for="username" class="sr-only">Username:</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Username">      
-        <label for="password" class="sr-only">Password:</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-      </div>
-        <br>	
-        <center>												   
-        <button type="submit" class="btn btn-primary">Login</button>
-        </center>
-        <br>
-        <center><a  href="{{ url_for('users_form')}}" >Create a new account</a></center>
-    
-  </form>
- 
-
-  {% endif %}
   
+  {% else %}
+  <main role="main">
+    <section class="jumbotron text-center bg-white">
+      <div class="container bg-white">
+          <h1 class="jumbotron-heading">Please login</h2>
+          <form action="{{ url_for('auth_login')}}" method="POST" role="form">
+            <div class="form-group">
+              <br>
+              <label for="username" class="sr-only">Username:</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Username">      
+              <label for="password" class="sr-only">Password:</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <br>	
+            <button type="submit" class="btn btn-primary">Login</button>
+            <br>
+            <br>
+            <a href="{{ url_for('auth_create_user')}}" >Create a new account</a>
+          </form>
+      </div>
+      </section>
+  </main>
+  {% endif %}
 {% endblock %}
 

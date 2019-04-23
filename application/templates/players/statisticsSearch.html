@@ -5,7 +5,7 @@
   <div>
     <h2>Search for player statistics</h2>
     <br>
-    <form action="{{ url_for('player_statistics_search') }}" method="POST" role="form">
+    <form action="{{ url_for('players_statistics_search') }}" method="POST" role="form">
       {{form.csrf}}
       <div class="form-group" >
       {{ form.handle(class_='form-control')|safe }}

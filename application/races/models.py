@@ -20,4 +20,3 @@ class Race(Base):
         self.track_id = track_id
         self.character_id = character_id
 
-

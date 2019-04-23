@@ -19,7 +19,7 @@ def tracks_create():
     form = TrackForm(request.form)
 
     if not form.validate():
-        return render_template("tracks/listtracks.html", tracks=Track.query.all(), form = TrackForm())
+        return render_template("tracks/newtrack.html", tracks=Track.query.all(), form = TrackForm())
 
     t = Track(name=form.name.data)
     t.account_id = current_user.id

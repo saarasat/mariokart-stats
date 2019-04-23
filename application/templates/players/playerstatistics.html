@@ -2,9 +2,9 @@
 
 {% block body %}
   
-  {% if info is defined %}
+  {% if basic_stats is defined %}
     <div>
-    {% for player in info %}
+    {% for player in basic_stats %}
     <main role="main" class="inner cover">
         <h1 class="cover-heading">Player: {{player.Player}}</h1>
         <p class="lead"></p>
@@ -42,10 +42,9 @@
             <th scope="col">Times played</th>
           </tr>
         </thead>
-        {% if winning_character is defined %}
- 
+        {% if character_stats is defined %}
         <tbody>
-          {% for character in winning_character %}
+          {% for character in character_stats %}
           <tr>
             <td scope="row">{{character.Character}}</td>
             <td>{{character.Wins}}</td>
@@ -55,20 +54,18 @@
         {% endif %}    
       </table>
     </div>
-   
- 
     {% endfor %}
     {% endif %}
   </div>
   <br>
 
-  {% if tracks_played is defined %}
+  {% if track_stats is defined %}
 
 
   <h3>Results by track</h3>
   {% if favorite_tracks is defined %}
   <td><h5>Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h5></td>
-{% endif %}
+  {% endif %}
 
   <br>
   <div class="table-responsive table-sm">
@@ -80,7 +77,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for track in tracks_played %}
+        {% for track in track_stats %}
         <tr>
           <td scope="row">{{track.Track}}</td>
           <td>{{track.Races}}</td>

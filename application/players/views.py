@@ -16,20 +16,13 @@ def players_index():
     form.secondTrack.choices = [(track.id, track.name) for track in Track.query.all()]
     form.character.choices = [(character.id, character.name) for character in Character.query.all()]
 
-    if request.method == "GET":
-        return render_template("players/listplayers.html", players=players, form=form)
+    return render_template("players/listplayers.html", players=players, form=form)
 
 
 @app.route("/players", methods=["POST"])
 @login_required(role="ADMIN")
 def players_create():
     form = PlayerForm(request.form)
-    form.firstTrack.choices = [(track.id, track.name) for track in Track.query.all()]
-    form.secondTrack.choices = [(track.id, track.name) for track in Track.query.all()]
-    form.character.choices = [(character.id, character.name) for character in Character.query.all()]
-
-    if request.method == "GET":
-        return render_template("players/listplayers.html", form = form)
 
     firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
     character = Character.query.filter_by(id = form.character.data).first()
@@ -53,9 +46,8 @@ def players_create():
 
 @app.route("/secondtrack/<int:id>")
 @login_required(role="ADMIN")
-def secondTrack(id):
-    print('id', id)
-    
+def players_secondTrack(id):
+
     tracks = []
     tracksFiltered = Track.query.all()
     track_not_wanted = Track.query.filter_by(id=id).first()
@@ -72,6 +64,19 @@ def secondTrack(id):
         trackArray.append(trackObj)
 
     return jsonify({'tracks' : trackArray})
+
+@app.route("/statistics/", methods=["GET", "POST"])
+@login_required(role="ADMIN")
+def players_statistics_search():
+    form = SearchForm(request.form)
+    form.handle.choices = [(player.id, player.handle) for player in Player.query.filter_by(account_id=current_user.id).all()]
+    if request.method == "GET":
+        return render_template("players/statisticsSearch.html", form = form)
+
+    player = Player.query.filter_by(id = form.handle.data).first()
+    id = player.id 
+
+    return redirect(url_for("players_statisticsone", id=id))
 
 @app.route("/delete_player/<int:id>", methods=["GET", "POST"])
 @login_required(role="ADMIN")
@@ -90,7 +95,6 @@ def players_deleteone(id):
 
     return redirect(url_for("players_index"))
 
-
 @app.route("/update_player/<int:id>", methods=["GET","POST"])
 @login_required(role="ADMIN")
 def players_updateone(id):
@@ -103,24 +107,10 @@ def players_updateone(id):
 
     return redirect(url_for("players_index"))
 
-@app.route("/statistics/", methods=["GET", "POST"])
-@login_required(role="ADMIN")
-def player_statistics_search():
-    form = SearchForm(request.form)
-    form.handle.choices = [(player.id, player.handle) for player in Player.query.filter_by(account_id=current_user.id).all()]
-    if request.method == "GET":
-        return render_template("players/statisticsSearch.html", form = form)
-
-    player = Player.query.filter_by(id = form.handle.data).first()
-    id = player.id 
-
-    return redirect(url_for("player_statistics", id=id))
-
 @app.route("/statistics/<int:id>", methods=["GET"])
 @login_required(role="ADMIN")
-def player_statistics(id):
-
+def players_statisticsone(id):
 
     return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),
-    info=Player.basic_player_info(id), winning_character=Player.character_with_most_wins(id), favorite_tracks=Player.find_favoriteTracks(id),
-    tracks_played=Player.how_many_tracks_played(id), races_won=Player.races_won(id), race_stats=Player.race_statistics(id))
+    basic_stats=Player.player_basic_stats(id), races_won=Player.player_races_won(id), character_stats=Player.player_character_stats(id), favorite_tracks=Player.player_find_favoriteTracks(id),
+    track_stats=Player.player_track_stats(id), race_stats=Player.player_all_race_stats(id))

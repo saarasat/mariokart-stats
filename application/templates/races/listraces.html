@@ -2,6 +2,23 @@
 
 {% block body %}
 <h2>Races</h2>
+
+{% if player_ranking is defined %}
+<br>
+<div class="col-md-4">
+  <h3>Player ranking</h3>
+    <table class="col align-self-center">
+      {% for player in player_ranking %}        
+        <tr>
+          <td><h5>{{ player.Player }}</h5></td>
+          <td class="text-center">{{ player.Wins }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+  </div>
+
+{% endif %}
+
 <br>
 <div class="table-responsive table-sm">
   <table class="table">

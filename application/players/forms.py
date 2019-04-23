@@ -3,9 +3,9 @@ from wtforms import SelectField, StringField, validators
 
 class PlayerForm(FlaskForm):
     handle = StringField("Player handle", [validators.Length(min=2)])
-    firstTrack = SelectField("firstTrack", choices=[])
-    secondTrack = SelectField("secondTrack", choices=[])
-    character = SelectField("Character", choices=[])
+    firstTrack = SelectField("firstTrack", [validators.Length(min=2)], choices=[])
+    secondTrack = SelectField("secondTrack", [validators.Length(min=2)], choices=[])
+    character = SelectField("Character", [validators.Length(min=2)], choices=[])
 
     class Meta:
         csrf = False

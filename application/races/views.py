@@ -20,7 +20,7 @@ def races_index():
         player = Player.query.filter_by(id=race.player_id).first()
         race.player = player.handle
     
-    return render_template("races/listraces.html", races=races)
+    return render_template("races/listraces.html", races=races, player_ranking=Player.player_ranking())
 
 @app.route("/races/new/", methods=["GET", "POST"])
 @login_required

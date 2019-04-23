@@ -12,7 +12,7 @@ favoritetracks = db.Table('favoritetracks',
 
 class Player(Base):
 
-    handle = db.Column(db.String(160), nullable=False)
+    handle = db.Column(db.String(100), nullable=False)
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     
@@ -24,7 +24,7 @@ class Player(Base):
         self.character_id = character_id
 
     @staticmethod
-    def basic_player_info(id):
+    def player_basic_stats(id):
         stmt = text("SELECT Player.handle AS Player, Character.name AS Character,"
         " COUNT(Race.track_id) AS Races FROM Player"
         " JOIN Character ON Player.character_id = Character.id"
@@ -41,7 +41,7 @@ class Player(Base):
         return response
 
     @staticmethod
-    def races_won(id):
+    def player_races_won(id):
         stmt = text("SELECT SUM(Race.placement) AS Wins FROM Player"
         " JOIN Race ON Player.id = Race.player_id"
         " WHERE Race.placement = 1 AND Player.id = :id").params(id=id)
@@ -52,13 +52,11 @@ class Player(Base):
         for row in res:
             response.append({"Wins":row[0]})
         
-        print('response', response)
-
         return response
 
 
     @staticmethod
-    def character_with_most_wins(id):
+    def player_character_stats(id):
         stmt = text("SELECT Character.name AS Character,"
         " COUNT(Race.id) AS Wins FROM Player"
         " JOIN Race ON Player.id = Race.player_id"
@@ -75,7 +73,20 @@ class Player(Base):
         return response
 
     @staticmethod
-    def how_many_tracks_played(id):
+    def player_find_favoriteTracks(id):
+        stmt = text("SELECT Track.name FROM Track"
+        " LEFT JOIN favoritetracks ON Track.id = favoritetracks.track_id"
+        " WHERE favoritetracks.player_id = :id").params(id=id)
+
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"Track":row[0]})
+
+        return response
+
+    @staticmethod
+    def player_track_stats(id):
         stmt = text("SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id AND Race.placement = 1"
@@ -90,9 +101,8 @@ class Player(Base):
 
         return response
 
-
     @staticmethod
-    def race_statistics(id):
+    def player_all_race_stats(id):
         stmt = text("SELECT Track.name AS Track,"
         " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
@@ -110,41 +120,16 @@ class Player(Base):
         return response
 
     @staticmethod
-    def find_favoriteTracks(id):
-
-        
-        stmt = text("SELECT Track.name FROM Track"
-        " LEFT JOIN favoritetracks ON Track.id = favoritetracks.track_id"
-        " WHERE favoritetracks.player_id = :id").params(id=id)
-
-        res = db.engine.execute(stmt)
-        response = []
-        for row in res:
-            response.append({"Track":row[0]})
-        print('response', response)
-
-        return response
-
-    @staticmethod
     def player_ranking():
-        stmt = text("SELECT Player.handle, COUNT(Race.placement) AS Wins FROM Player"
-        " JOIN Race ON Player.id = Race.player_id"
+        stmt = text("SELECT Player.handle, COUNT(Race.placement) AS Wins FROM Race"
+        " JOIN Player ON Player.id = Race.player_id"
         " WHERE Race.placement = 1"
         " GROUP BY Player.handle"
-        " ORDER BY Wins")
+        " ORDER BY Wins DESC")
 
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            response.append({"Player":row[0]})
-        print('response', response)
+            response.append({"Player":row[0], "Wins":row[1]})
 
         return response
-
-    @staticmethod
-    def delete_player(id):
-        stmt = text("DELETE FROM favoritetracks WHERE player_id = :id").params(id=id)
-        res = db.engine.execute(stmt)
-
-        response = []
-        print('response', response)
