@@ -7,7 +7,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 1. Adding stats: As a scorekeeper I can insert the game statistics of a single race
 
-*SQL (example):*
+**SQL (example):**
 
 <code>"INSERT INTO race"
         " (date_created, date_modified, finish_time, placement," 
@@ -17,7 +17,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 2. Removing stats: As a scorekeeper I can remove records of one or all races
 
-*SQL (example):*  
+**SQL (example):**
 
 <code>"DELETE FROM race WHERE race.id = ?", (2);</code>
 
@@ -27,7 +27,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 1. As a scorekeeper I can find out how many times each track has been played by my players
 2. As a scorekeeper I can find out what is the best finish time for a certain track 
 
-*SQL for both 1 and 2:*
+**SQL for both 1 and 2:**
 
 <code>"SELECT Track.name AS Track,"
         " COUNT(Race.track_id) AS Races,"
@@ -41,7 +41,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 1. As a scorekeeper I can search for all the races where a certain player has won
 
-*SQL*
+**SQL**
 
 <code>"SELECT SUM(Race.placement) AS Wins FROM Player"
         " JOIN Race ON Player.id = Race.player_id"
@@ -49,7 +49,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 2. As a scorekeeper I can search for all the races where a certain player was last
 
-*SQL (included in this query in the actual application)*
+**SQL (included in this query in the actual application)**
 
 <code>"SELECT Track.name AS Track,"
         " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
@@ -61,7 +61,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 3. As a scorekeeper I can find out which has been the most successful character for a certain player (character with most first places)
 
-*SQL*
+**SQL**
 
 <code>"SELECT Character.name AS Character,"
         " COUNT(Race.id) AS Wins FROM Player"
@@ -73,7 +73,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 4. As a scorekeeper I can find out in which track a certain player has performed the best (most first places out of all tracks played)
 
-*SQL*
+**SQL**
 
 <code>"SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
@@ -83,7 +83,7 @@ The idea is that anyone can update racing statistics from Mario Kart 64. The per
 
 5. As a scorekeeper I can find out how many times a certain player has played a single track
 
-*SQL (included in this query in the actual application)*
+**SQL (included in this query in the actual application)**
 
 "SELECT Track.name AS Track,"
         " Race.finish_time AS FinishTime, Character.name AS Character, Race.placement AS Placement FROM Race"
