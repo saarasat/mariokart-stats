@@ -25,7 +25,7 @@ Includes the main data of the app, the actual racing data. A single entry to thi
 
 ## Database schema
 
-![Database](https://github.com/saarasat/mariokart-stats/blob/master/documentation/Database%20schema%20-%20Mario%20Kart%20Statistics%20-v.3.0.png)
+![Database](https://github.com/saarasat/mariokart-stats/blob/master/documentation/Database%20schema%20-%20Mario%20Kart%20Statistics%20v.4.0.png)
 
 
 
