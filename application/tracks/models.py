@@ -5,7 +5,7 @@ from ..players.models import favoritetracks, Player
 
 class Track(Base):
       
-    name = db.Column(db.String(160), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
    
     favoritetracks = db.relationship('Player', secondary=favoritetracks, backref=db.backref('tracks', lazy='dynamic'))
 
@@ -13,7 +13,7 @@ class Track(Base):
         self.name = name
         
     @staticmethod
-    def how_many_times_tracks_played():
+    def tracks_basic_stats():
         stmt = text("SELECT Track.name AS Track,"
         " COUNT(Race.track_id) AS Races,"
         " MIN(Race.finish_time) AS BestTime,"

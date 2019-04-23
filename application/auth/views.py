@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
+from wtforms import validators
 
 from application import app, db
 from application.auth.models import User
@@ -20,19 +21,21 @@ def auth_login():
     return redirect(url_for("index"))
 
 
-@app.route("/users/", methods=["GET", "POST"])
+
+@app.route("/users/new/")
+def auth_user_form():
+    return render_template("auth/userform.html", form = UserForm())
+
+@app.route("/users/", methods=["POST"])
 def auth_create_user():
-    
-    if request.method == "GET":
-        return render_template("auth/userform.html", form = UserForm())
-    
     form = UserForm(request.form)
 
-    user = User(name=form.name.data, username=form.username.data, password=form.password.data)
+    user = User(name=form.name.data, username=form.username.data, password=form.password.data)    
     db.session().add(user)
     db.session().commit()
 
     return redirect(url_for("auth_login"))
+
 
 
 @app.route("/auth/logout")

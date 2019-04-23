@@ -2,7 +2,7 @@
 {% block body %}
 
 <form method="POST" action="{{ url_for('auth_create_user')}}">
-  
+  {{form.error}}
   <div class="form-group">
     <h2 class="text-center">Create a new account</h2>
       <div class="form-group">

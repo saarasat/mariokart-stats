@@ -3,7 +3,7 @@
 {% block body %}
 <h2>Tracks</h2>
 <br>
-{% if tracks_played is defined %}
+{% if basic_stats is defined %}
 <div class="table-responsive table-sm ">
   <table class="table col align-self-center">
       <thead>
@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-      {% for track in tracks_played %}
+      {% for track in basic_stats %}
         <tr>
           <td>{{ track.Track }}</td>
           <td>{{ track.Races }}</td>
