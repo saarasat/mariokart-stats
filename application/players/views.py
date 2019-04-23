@@ -71,7 +71,7 @@ def players_statistics_search():
     form = SearchForm(request.form)
     form.handle.choices = [(player.id, player.handle) for player in Player.query.filter_by(account_id=current_user.id).all()]
     if request.method == "GET":
-        return render_template("players/statisticsSearch.html", form = form)
+        return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
 
     player = Player.query.filter_by(id = form.handle.data).first()
     id = player.id 
