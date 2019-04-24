@@ -18,7 +18,7 @@
 
 5. Launch the application with: 
 
-<pre><code>python run.py<pre></code>
+<pre><code>python run.py</code><pre>
 
 ### Installing the app with Heroku 
 
