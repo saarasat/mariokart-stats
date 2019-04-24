@@ -18,7 +18,7 @@
 
 5. Launch the application with: 
 
-<pre><code>python run.py</code><pre>
+<pre><code>python run.py</code></pre>
 
 ### Installing the app with Heroku 
 
@@ -28,9 +28,9 @@
 
 3. On the commandline, create an app at heroku:
 
-<pre><code>heroku create <name of your choosing></code></pre>
+<pre><code>heroku create name-of-your-app</code></pre>
 
 (4. in case you wish to modify the app and are using Github, you can add the remote for the app with:)
 
-<pre><code>git remote add heroku https://git.heroku.com/<name-of-your-app>.git</code></pre>
+<pre><code>git remote add heroku https://git.heroku.com/name-of-your-app.git</code></pre>
 
