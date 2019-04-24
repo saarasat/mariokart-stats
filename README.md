@@ -6,6 +6,8 @@ Done for the database -course in spring 2019. Includes a database for controllin
 
 [User stories](https://github.com/saarasat/mariokart-stats/blob/master/documentation/User%20stories.md)
 
+[User manual](https://github.com/saarasat/mariokart-stats/blob/master/documentation/User%20manual.md)
+
 [App on Heroku](https://mario-kart-stats.herokuapp.com)
 
 Test credentials: username: "pelailija", password: "salasana". 
