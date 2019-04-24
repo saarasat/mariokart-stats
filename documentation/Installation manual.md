@@ -1,6 +1,6 @@
 # Installation manual
 
-### Installing the app
+### Installing the app and working locally
 
 1. Download the application at: https://github.com/saarasat/mariokart-stats
 
@@ -20,5 +20,17 @@
 
 <pre><code>python run.py<pre></code>
 
+### Installing the app with Heroku 
 
+1. Follow the steps 1-4 first
+
+2. Make sure you have created an account at Heroku
+
+3. On the commandline, create an app at heroku:
+
+<pre><code>heroku create <name of your choosing></code></pre>
+
+(4. in case you wish to modify the app and are using Github, you can add the remote for the app with:)
+
+<pre><code>git remote add heroku https://git.heroku.com/<name-of-your-app>.git</code></pre>
 
