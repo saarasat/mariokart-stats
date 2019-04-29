@@ -14,7 +14,7 @@ class Track(Base):
         
     @staticmethod
     def tracks_basic_stats(id):
-        stmt = text("SELECT DISTINCT Player.handle AS Player,"
+        stmt = text("SELECT DISTINCT(Player.handle) AS Player,"
         " COUNT(Race.track_id) AS Races,"
         " MIN(Race.finish_time) AS BestTime,"
         " Track.name AS Track FROM Track" 
