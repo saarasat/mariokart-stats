@@ -8,7 +8,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Player</th>
         <th scope="col">Track</th>
         <th scope="col">Placement</th>
@@ -20,8 +19,7 @@
     <tbody>
       {% for race in races %}
       <tr>
-        <th scope="row">{{ race.id }}</th>
-        <td>{{ race.player}}</td>
+        <td>{{ race.player }}</td>
         <td>{{ race.track }}</td>
         <td>{{ race.placement }}</td>
         <td>{{ race.character }}</td>

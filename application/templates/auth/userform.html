@@ -2,13 +2,11 @@
 {% block body %}
 
 <form method="POST" action="{{ url_for('auth_create_user')}}">
-  {{form.error}}
   <div class="form-group">
     <h2 class="text-center">Create a new account</h2>
       <div class="form-group">
         Name:
-        <label for="name" class="sr-only">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+        {{ form.name(class="form-control")}}
       </div>
       {% for error in form.name.errors %}
       <li>{{ form.name.label }} {{ error }}</li>
@@ -16,8 +14,8 @@
 	    {% endfor %}
       <div class="form-group">
         Username:
-        <label for="username" class="sr-only">Username:</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+        {{ form.username(class="form-control")}}
+
       </div>
       {% for error in form.username.errors %}
       <li>{{ form.username.label }} {{ error }}</li>
@@ -25,8 +23,8 @@
 	    {% endfor %}
       <div class="form-group">
         Password:
-        <label for="password" class="sr-only">Password:</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        {{ form.password(class="form-control")}}
+
       </div>
       {% for error in form.password.errors %}
       <li>{{ form.password.label }} {{ error }}</li>
@@ -34,7 +32,7 @@
 	    {% endfor %}
     </div>
     <div class="text-center">
-        <button type="submit" class="btn btn-success" class="text-center">Create an account</button>
+      <input class="btn btn-info" type="submit" value="Create account"/>
       </div>
       </form>
 

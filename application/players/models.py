@@ -30,7 +30,7 @@ class Player(Base):
         " JOIN Character ON Player.character_id = Character.id"
         " JOIN Race ON Player.id = Race.player_id"
         " WHERE Player.id = :id"
-        " GROUP BY Player.handle, Character.name").params(id=id)
+        " GROUP BY Player.handle").params(id=id)
         
         res = db.engine.execute(stmt)
 
@@ -89,7 +89,7 @@ class Player(Base):
     def player_track_stats(id):
         stmt = text("SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
-        " WHERE player_id = :id AND Race.placement = 1"
+        " WHERE player_id = :id"
         " GROUP BY Track"
         " ORDER BY Races DESC").params(id=id)
         

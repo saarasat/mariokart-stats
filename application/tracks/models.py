@@ -13,20 +13,21 @@ class Track(Base):
         self.name = name
         
     @staticmethod
-    def tracks_basic_stats():
+    def tracks_basic_stats(id):
         stmt = text("SELECT Track.name AS Track,"
         " COUNT(Race.track_id) AS Races,"
         " MIN(Race.finish_time) AS BestTime,"
         " Player.handle AS Player FROM Track" 
         " LEFT JOIN Race ON Track.id = Race.track_id "
         " LEFT JOIN Player ON Race.player_id = Player.id"
-        " WHERE Player IS NOT NULL"
-        " GROUP BY Track.name, Player.handle ORDER BY Races, Player.handle")
+        " WHERE Race.account_id = :id"
+        " GROUP BY Track.id"
+        " ORDER BY Races"
+        " DESC").params(id=id)
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
             response.append({"Track":row[0], "Races":row[1], "BestTime":row[2], "Player":row[3]})
-        print('response', response)
 
         return response

@@ -12,7 +12,7 @@
     </ul>
     <table>
       <tr>
-        <td>Player handle</td>
+        <td>Player</td>
         <td>
           <div class="form-group">  
             <label for="handle" class="sr-only">Player Handle</label>
@@ -21,7 +21,7 @@
         </td>
       </tr>
       <tr>
-        <td>Your favorite track</td>
+        <td>Player's favorite track</td>
         <td>  
           <div class="form-group">
             {{ form.firstTrack(class_='form-control')|safe }}
@@ -29,7 +29,7 @@
         </td>
       </tr>
       <tr>
-        <td>Add another favorite track</td>
+        <td>Player's second favorite track</td>
         <td>
           <div class="form-group">
             <select class="form-control" id="secondTrack" name="secondTrack">
@@ -57,7 +57,7 @@
         </td>
       </tr>
       <tr>
-        <td>Favorite character</td>
+        <td>Player's favorite character</td>
         <td>
           <div class="form-group">
             {{ form.character(class_='form-control')|safe }}
@@ -81,7 +81,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Player</th>
         <th scope="col">Update</th>
         <th scope="col">Delete</th>
@@ -90,8 +89,7 @@
     <tbody>
       {% for player in players %}
       <tr>
-        <th scope="row">{{ player.id }}</th>
-        <td>{{ player.handle}}</td>
+        <th scope="row">{{ player.handle}}</th>
         <td>
           <form action="{{url_for('players_updateone', id=player.id)}}" method="GET">
             <input class="btn btn-secondary btn-sm" type="submit" value="Update" >
