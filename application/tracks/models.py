@@ -21,7 +21,7 @@ class Track(Base):
         " LEFT JOIN Race ON Track.id = Race.track_id "
         " LEFT JOIN Player ON Race.player_id = Player.id"
         " WHERE Race.account_id = :id"
-        " GROUP BY Track.id"
+        " GROUP BY Track.name"
         " HAVING COUNT(Player.handle) > 1"
         " ORDER BY Races"
         " DESC").params(id=id)
