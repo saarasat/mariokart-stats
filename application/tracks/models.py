@@ -22,6 +22,7 @@ class Track(Base):
         " LEFT JOIN Player ON Race.player_id = Player.id"
         " WHERE Race.account_id = :id"
         " GROUP BY Track.id"
+        " HAVING COUNT(Player.handle) > 1"
         " ORDER BY Races"
         " DESC").params(id=id)
         res = db.engine.execute(stmt)
