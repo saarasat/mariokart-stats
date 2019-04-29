@@ -14,7 +14,7 @@ class Track(Base):
         
     @staticmethod
     def tracks_basic_stats(id):
-        stmt = text("SELECT DISTINCT(Player.handle) AS Player,"
+        stmt = text("SELECT MAX(Player.handle) AS Player,"
         " COUNT(Race.track_id) AS Races,"
         " MIN(Race.finish_time) AS BestTime,"
         " Track.name AS Track FROM Track" 
@@ -22,7 +22,6 @@ class Track(Base):
         " LEFT JOIN Player ON Race.player_id = Player.id"
         " WHERE Race.account_id = :id"
         " GROUP BY Track.name"
-        " HAVING COUNT(Player.handle) > 1"
         " ORDER BY Races"
         " DESC").params(id=id)
         res = db.engine.execute(stmt)
