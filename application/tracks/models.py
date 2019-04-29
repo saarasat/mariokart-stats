@@ -14,10 +14,10 @@ class Track(Base):
         
     @staticmethod
     def tracks_basic_stats(id):
-        stmt = text("SELECT Track.name AS Track,"
+        stmt = text("SELECT DISTINCT Player.handle AS Player,"
         " COUNT(Race.track_id) AS Races,"
         " MIN(Race.finish_time) AS BestTime,"
-        " Player.handle AS Player FROM Track" 
+        " Track.name AS Track FROM Track" 
         " LEFT JOIN Race ON Track.id = Race.track_id "
         " LEFT JOIN Player ON Race.player_id = Player.id"
         " WHERE Race.account_id = :id"
@@ -28,6 +28,6 @@ class Track(Base):
 
         response = []
         for row in res:
-            response.append({"Track":row[0], "Races":row[1], "BestTime":row[2], "Player":row[3]})
+            response.append({"Player":row[0], "Races":row[1], "BestTime":row[2], "Track":row[3]})
 
         return response
