@@ -10,9 +10,8 @@ class Track(Base):
     favoritetracks = db.relationship('Player', secondary=favoritetracks, backref=db.backref('tracks', lazy='dynamic'))
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
-    def __init__(self, name, account_id):
+    def __init__(self, name):
         self.name = name
-        self.account_id = account_id
         
     @staticmethod
     def tracks_basic_stats(id):
