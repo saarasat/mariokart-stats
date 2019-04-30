@@ -53,7 +53,7 @@ def login_required(role="ADMIN"):
         return decorated_view
     return wrapper
 
-from application import views
+
 from application.players import models
 from application.players import views
 
