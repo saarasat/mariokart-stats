@@ -21,8 +21,10 @@ def index():
     if not user:
         return render_template("index.html", form = form, error = "No such username or password")
 
+    
+
     login_user(user)
-    return render_template("auth/initiateapp.html", form=TrackForm(), admin=user.admin)
+    return redirect(url_for("index"))
 
 @app.route("/users/", methods=["GET", "POST"])
 def auth_create_user():
@@ -35,17 +37,6 @@ def auth_create_user():
     user = User(form.name.data, form.username.data, form.password.data, form.admin.data)    
     db.session().add(user)
     db.session().commit()
-
-    return redirect(url_for("index"))
-    
-
-@app.route("/auth/logout")
-def auth_logout():
-    logout_user()
-    return redirect(url_for("index"))
-
-@app.route("/auth/createall", methods=["GET","POST"])
-def auth_create_initial_data():
 
     track = Track.query.filter_by(name="Rainbow Road").first()
 
@@ -85,6 +76,9 @@ def auth_create_initial_data():
         db.session().add(p)
         db.session.commit()
 
+    character = Character.query.filter_by(name="Yoshi").first()
+
+    if not character:
         q = Character(name="Mario")
         r = Character(name="Luigi")
         s = Character(name="Toad")
@@ -105,6 +99,11 @@ def auth_create_initial_data():
 
         return redirect(url_for("index"))
 
+    return redirect(url_for("index"))    
+
+@app.route("/auth/logout")
+def auth_logout():
+    logout_user()
     return redirect(url_for("index"))
 
 
