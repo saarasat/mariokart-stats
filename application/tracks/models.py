@@ -8,6 +8,7 @@ class Track(Base):
     name = db.Column(db.String(100), nullable=False)
    
     favoritetracks = db.relationship('Player', secondary=favoritetracks, backref=db.backref('tracks', lazy='dynamic'))
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
     def __init__(self, name):
         self.name = name
