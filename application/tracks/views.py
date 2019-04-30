@@ -45,15 +45,18 @@ def tracks_create_all():
 
     form = TrackForm(request.form)
 
-    a = Track(name="Luigi Raceway", account_id=current_user.id)
+    a = Track(name="Luigi Raceway")
+    a.account_id = current_user.id
     db.session().add(a)
     db.session().commit()
 
-    b = Track(name="Moo Moo Farm", account_id=current_user.id)
+    b = Track(name="Moo Moo Farm")
+    b.account_id = current_user.id
     db.session().add(b)
     db.session().commit()
 
-    c = Track(name="Koopa Troopa Beach", account_id=current_user.id)
+    c = Track(name="Koopa Troopa Beach")
+    c.account_id = current_user.id
     db.session().add(c)
     db.session().commit()
 
