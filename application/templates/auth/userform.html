@@ -9,7 +9,7 @@
         {{ form.name(class="form-control")}}
       </div>
       {% for error in form.name.errors %}
-      <li>{{ form.name.label }} {{ error }}</li>
+      <li>{{ error }}</li>
       <p></p>
 	    {% endfor %}
       <div class="form-group">
@@ -18,7 +18,7 @@
 
       </div>
       {% for error in form.username.errors %}
-      <li>{{ form.username.label }} {{ error }}</li>
+      <li>{{ error }}</li>
       <p></p>
 	    {% endfor %}
       <div class="form-group">
@@ -27,7 +27,7 @@
 
       </div>
       {% for error in form.password.errors %}
-      <li>{{ form.password.label }} {{ error }}</li>
+      <li>{{ error }}</li>
       <p></p>
 	    {% endfor %}
     </div>

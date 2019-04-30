@@ -46,9 +46,11 @@
     <section class="jumbotron text-center bg-white">
       <div class="container bg-white">
           <h1 class="jumbotron-heading">Please login</h2>
-          <form action="{{ url_for('auth_login')}}" method="POST" role="form">
+          <form action="{{ url_for('index')}}" method="POST" role="form">
             <div class="form-group">
               <br>
+              <p>{{ error }}</p>
+              <p></p>
               <label for="username" class="sr-only">Username:</label>
               <input type="text" class="form-control" id="username" name="username" placeholder="Username">      
               <label for="password" class="sr-only">Password:</label>
@@ -58,7 +60,7 @@
             <button type="submit" class="btn btn-primary">Login</button>
             <br>
             <br>
-            <a href="{{ url_for('users_form')}}" >Create a new account</a>
+            <a href="{{ url_for('auth_create_user')}}" >Create a new account</a>
           </form>
       </div>
       </section>
