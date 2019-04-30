@@ -30,6 +30,14 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('players_index')}} ">Manage players</a>
             </li>
+            {% if admin %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('tracks_create')}} ">Add a track</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('characters_create')}} ">Add a character</a>
+            </li>
+            {% endif %}
           </ul>
         <div class="form-inline mt-2 mt-md-0">
           <a href="{{ url_for('auth_logout') }}">Hello {{ current_user.name }} -- Log out</a>

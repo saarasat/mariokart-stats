@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+<h2>All characters</h2>
+<br>
+<div class="table-responsive-md">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Character</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for character in characters %}
+      <tr>
+        <th scope="row">{{ character.name}}</th>
+        <td>
+          <form action="{{url_for('characters_updateone', id=character.id)}}" method="GET">
+            <input class="btn btn-secondary btn-sm" type="submit" value="Update" >
+          </form>  
+        </td>
+        <td>
+          <form action="{{url_for('characters_deleteone', id=character.id)}}" method="GET">
+            <input class="btn btn-danger btn-sm" type="submit" value="Delete" >
+          </form>  
+        </td>            
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

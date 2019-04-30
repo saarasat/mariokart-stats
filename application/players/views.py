@@ -8,7 +8,7 @@ from application.character.models import Character
 from application.tracks.models import Track
 
 @app.route("/players", methods=["GET"])
-@login_required(role="ADMIN")
+@login_required(role="USER")
 def players_index():
     players = Player.query.filter_by(account_id = current_user.id).all()
     form = PlayerForm(request.form)
@@ -20,7 +20,7 @@ def players_index():
 
 
 @app.route("/players", methods=["POST"])
-@login_required(role="ADMIN")
+@login_required(role="USER")
 def players_create():
     form = PlayerForm(request.form)
 
@@ -45,7 +45,7 @@ def players_create():
     return redirect(url_for("players_index"))
 
 @app.route("/secondtrack/<int:id>")
-@login_required(role="ADMIN")
+@login_required(role="USER")
 def players_secondTrack(id):
 
     tracks = []
@@ -66,7 +66,7 @@ def players_secondTrack(id):
     return jsonify({'tracks' : trackArray})
 
 @app.route("/statistics/", methods=["GET", "POST"])
-@login_required(role="ADMIN")
+@login_required(role="USER")
 def players_statistics_search():
     form = SearchForm(request.form)
     form.handle.choices = [(player.id, player.handle) for player in Player.query.filter_by(account_id=current_user.id).all()]
@@ -79,7 +79,7 @@ def players_statistics_search():
     return redirect(url_for("players_statisticsone", id=id))
 
 @app.route("/delete_player/<int:id>", methods=["GET", "POST"])
-@login_required(role="ADMIN")
+@login_required(role="USER")
 def players_deleteone(id):
     player = Player.query.get(id)
 
@@ -96,7 +96,7 @@ def players_deleteone(id):
     return redirect(url_for("players_index"))
 
 @app.route("/update_player/<int:id>", methods=["GET","POST"])
-@login_required(role="ADMIN")
+@login_required(role="USER")
 def players_updateone(id):
     player = Player.query.get(id)
     if request.method == "GET":
@@ -108,7 +108,7 @@ def players_updateone(id):
     return redirect(url_for("players_index"))
 
 @app.route("/statistics/<int:id>", methods=["GET"])
-@login_required(role="ADMIN")
+@login_required(role="USER")
 def players_statisticsone(id):
 
     return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),

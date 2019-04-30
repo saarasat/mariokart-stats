@@ -3,7 +3,7 @@ from wtforms import SelectField, StringField, validators
 
 class TrackForm(FlaskForm):
    
-    name = SelectField("Track name", [validators.Length(min=3, max=100)], choices=[])
+    name = StringField("Track name", [validators.Length(min=3, max=100)])
     
     class Meta:
         csrf = False

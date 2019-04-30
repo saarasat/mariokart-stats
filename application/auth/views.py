@@ -4,6 +4,8 @@ from flask_login import login_user, logout_user
 from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, UserForm
+from application.tracks.forms import TrackForm
+
 
 @app.route("/", methods = ["GET", "POST"])
 def index():
@@ -17,7 +19,7 @@ def index():
         return render_template("index.html", form = form, error = "No such username or password")
 
     login_user(user)
-    return redirect(url_for("index"))
+    return render_template("auth/initiateapp.html", form=TrackForm(), admin=user.admin)
 
 @app.route("/users/", methods=["GET", "POST"])
 def auth_create_user():
@@ -27,10 +29,10 @@ def auth_create_user():
 
     form = UserForm(request.form)
 
-    user = User(form.name.data, form.username.data, form.password.data)    
+    user = User(form.name.data, form.username.data, form.password.data, form.admin.data)    
     db.session().add(user)
     db.session().commit()
-    
+
     return redirect(url_for("index"))
     
 

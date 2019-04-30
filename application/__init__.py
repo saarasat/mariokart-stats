@@ -1,3 +1,4 @@
+
 from flask import Flask
 app = Flask(__name__)
 
@@ -20,7 +21,7 @@ from flask_login import LoginManager, current_user
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-login_manager.login_view = "auth_login"
+login_manager.login_view = "index"
 login_manager.login_message = "Please login to use this functionality"
 
 # roles in login_required
@@ -63,6 +64,10 @@ from application.races import views
 from application.tracks import models
 from application.tracks import views
 
+from application.character import models
+from application.character.models import Character
+from application.character import views
+
 from application.auth import models
 from application.auth import views
 
@@ -77,3 +82,4 @@ try:
     db.create_all()
 except:
     pass
+

@@ -1,18 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>tracks</th>
-    </tr>
-    <tr>
-      <td>
-        <form method="POST">
-          {{ form.csrf_token }}
-          {{ form.name }}
-          <input type="submit">
-        </form>
-      </td>
-    </tr>
-  </table>
+<form action="{{ url_for('tracks_create')}}" method="POST" role="form">
+    <ul>
+      {% for error in form.name.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    
+    <div class="form-group">
+      <h2>Add a new track</h2>
+      <br>
+      <label for="name" class="sr-only">Track name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="New track">      
+    </div>                         
+      <button type="submit" class="btn btn-success">Add track</button>
+</form>
+
+<form action="{{ url_for('tracks_create_all')}}" method="POST" role="form">
+  <button type="submit">yeah</button>
+</form>
+  
 {% endblock %}

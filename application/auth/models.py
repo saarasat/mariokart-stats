@@ -9,14 +9,16 @@ class User(Base):
     name = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(60), nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    admin = db.Column(db.Boolean())
 
     players = db.relationship("Player", backref='account', lazy=True)
     races = db.relationship("Race", backref='account', lazy=True)
 
-    def __init__(self, name, username, password):
+    def __init__(self, name, username, password, admin):
         self.name = name
         self.username = username
         self.password = password
+        self.admin = admin
   
     def get_id(self):
         return self.id
@@ -31,4 +33,4 @@ class User(Base):
         return True
     
     def roles(self):
-        return ["ADMIN"]
+        return ["USER"]

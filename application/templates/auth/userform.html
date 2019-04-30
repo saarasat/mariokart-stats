@@ -31,6 +31,16 @@
       <p></p>
 	    {% endfor %}
     </div>
+    <div class="form-group">
+      Admin:
+      {{ form.admin(class="form-control")}}
+
+    </div>
+    {% for error in form.password.errors %}
+    <li>{{ error }}</li>
+    <p></p>
+    {% endfor %}
+  </div>
     <div class="text-center">
       <input class="btn btn-info" type="submit" value="Create account"/>
       </div>

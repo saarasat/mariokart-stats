@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('characters_updateone', id=id) }}" method="POST" role="form">
+    <ul>
+      {% for error in form.name.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    
+    <div class="form-group">
+      <h2>Update character name</h2>
+      <br>
+      <b>Old character name: {{ name }}</b>
+      <br>
+      <label for="name" class="sr-only">Character name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="New name">      
+    </div>                         
+      <button type="submit" class="btn btn-success">Update handle</button>
+</form>
+  
+{% endblock %}

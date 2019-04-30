@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if admin %}
+<form action="{{ url_for('tracks_create_all')}}" method="POST" role="form">
+    <ul>
+      {% for error in form.name.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    
+    <div class="form-group">
+      <h2>First time player?</h2>
+      <br>
+    </div>                         
+      <button type="submit" class="btn btn-success">Yes</button>
+</form>
+{% endif %}
+  
+{% endblock %}
