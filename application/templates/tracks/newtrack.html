@@ -18,6 +18,13 @@
 </form>
 
 <form action="{{ url_for('tracks_create_all')}}" method="POST" role="form">
+  <div class="form-group">
+    <h2>Add a new track</h2>
+    <br>
+    <label for="name" class="sr-only">Track name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="New track">      
+  </div>                         
+    <button type="submit" class="btn btn-success">Add track</button>
   <button type="submit">yeah</button>
 </form>
   

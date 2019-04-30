@@ -1,8 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{% if admin %}
-<form action="{{ url_for('tracks_create_all')}}" method="POST" role="form">
+<form action="{{ url_for('auth_create_initial_data')}}" method="POST" role="form">
     <ul>
       {% for error in form.name.errors %}
         <li>{{ error }}</li>
@@ -13,8 +12,8 @@
       <h2>First time player?</h2>
       <br>
     </div>                         
-      <button type="submit" class="btn btn-success">Yes</button>
+      <button type="submit" class="btn btn-submit">Yes</button>
+      <button type="submit" class="btn btn-secondary">No</button>
 </form>
-{% endif %}
-  
+
 {% endblock %}
