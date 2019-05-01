@@ -62,9 +62,14 @@ def races_create():
 
     return render_template("races/moreplayers.html")
 
-@app.route("/delete_race/<int:id>", methods=["POST"])
+@app.route("/delete_race/<int:id>", methods=["POST", "GET"])
 @login_required
 def races_deleteone(id):
+
+    race = Race.query.get(id)
+
+    if race.account_id != current_user.id:
+        return render_template("/noaccess.html")
 
     Race.query.filter_by(id=id).delete()
     db.session.commit()
