@@ -65,6 +65,7 @@ def races_create():
 @app.route("/delete_race/<int:id>", methods=["POST"])
 @login_required
 def races_deleteone(id):
+
     Race.query.filter_by(id=id).delete()
     db.session.commit()
 

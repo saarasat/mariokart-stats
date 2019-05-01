@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-{% if current_user.is_authenticated %}
 <div>
   <h4>Are you sure you want to permanently remove the player <b>{{handle}}</b> and all data related to it?</h4>
     <br>
@@ -21,5 +19,4 @@
       </tr>
   </table>  
 </div>
-{% endif %}
 {% endblock %}

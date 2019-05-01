@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 {% block body %}
 
-{% if current_user.is_authenticated %}
 <form method="POST" action="{{ url_for('auth_create_user')}}">
   <div class="form-group">
     <h2 class="text-center">Create a new account</h2>
@@ -27,6 +26,5 @@
 
       </form>
 
-{% endif %}
 
 {% endblock %}
