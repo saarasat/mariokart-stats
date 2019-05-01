@@ -47,8 +47,7 @@ def players_create():
         secondTrack.favoritetracks.append(player)
         db.session().commit()
 
-
-    return render_template("players/listplayers.html", players=players, form=form, error="Player successfully added!")
+    return redirect(url_for("players_create"))
 
 @app.route("/secondtrack/<int:id>")
 @login_required(role="USER")
@@ -79,13 +78,18 @@ def players_statistics_search():
     if request.method == "GET":
         return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
 
-    player = Player.query.filter_by(id = form.handle.data).first()
+    if request.method == "POST":
+        if not form.handle.data:
+            return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
+        player = Player.query.filter_by(id = form.handle.data).first()
 
-    if not player:
-        return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
+        if not player:
+            return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
 
-    id = player.id 
-    return redirect(url_for("players_statisticsone", id=id))
+        id = player.id 
+        return redirect(url_for("players_statisticsone", id=id))
+
+    return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
 
 @app.route("/delete_player/<int:id>", methods=["GET", "POST"])
 @login_required(role="USER")
