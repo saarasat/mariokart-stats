@@ -18,7 +18,7 @@
         <tr>
           <td>{{ track.Track }}</td>
           <td>{{ track.Races }}</td>
-          <td>{{ track.BestTime[0:5] }}</td>
+          <td>{{ track.BestTime}}</td>
         </tr>
       {% endfor %}
       </tbody>
@@ -41,7 +41,7 @@
       {% for player in fastest_player %}
         <tr>
           <td>{{ track.Track }}</td>
-          <td>{{ track.BestTime[0:8] }}</td>
+          <td>{{ track.BestTime}}</td>
           <td>{{ player.Player }}</td>
         </tr>
       {% endfor %}
