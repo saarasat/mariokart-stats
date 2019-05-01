@@ -2,7 +2,7 @@
 
 ## 1. Logging in & creating an account
 
-Before logging in, you need to register https://mario-kart-stats.herokuapp.com/users/new/. For creating a user account, you need to give your name, username and a password of your choice. 
+Before logging in, you need to register https://mario-kart-stats.herokuapp.com/users/. For creating a user account, you need to give your name, username and a password of your choice. Username has to be unique.
 Logging happens with username and password at https://mario-kart-stats.herokuapp.com/.
 
 ## 2. Adding statistics
@@ -11,7 +11,7 @@ There are two kinds of information that can be added to the Mario Kart Statistic
 
 ### 2.1 Adding new players:
  
-Firstly, create a player: https://mario-kart-stats.herokuapp.com/players. Player can be you or all people in the group playing the game. 
+Firstly, create a player: https://mario-kart-stats.herokuapp.com/players. You can add only yourself or all of your group playing.
 
 For each player you need to specify a unique player handle, define two favorite tracks for the player and the favorite character they like to play with.
 
@@ -45,7 +45,7 @@ The application stores three different kind of information. Statistics by race, 
 
 ### 3.1 Stats by race
 
-Lists all data of all races in the order they were added. All races for all players in this account are shown. The newest can be found last on the list. Each race can be deleted in this view. 
+Lists all data of all races in the order they were added. All races for all players in this account are shown. Any race added for this account can be deleted in this view. 
 
 ### 3.2 Stats by track
 
@@ -53,7 +53,7 @@ Lists all data of all tracks. The list shows the name of the track, the times ea
 
 ### 3.3 Stats by player
 
-Statistics of individual players can be found here. Each user can find the stats of the players they have registered. 
+Statistics of individual players can be found here. Each user can find the stats of the players they have registered. Including the player ranking.
 
 #### "Races played in total":
 Shows all the races this player has ever played.
@@ -74,3 +74,7 @@ Shows all race stats by this player in ascending order by placement. Eg. the fas
 
 A place for adding new players (see 2.1. "Adding new players")
 Player handles can be updated or individual players can be deleted. Please note that deleting a player will delete all data relating to them.
+
+## 5. Changing account login-information
+
+Here you can change your accounts name, username or password. Or all of them as the same time. 
