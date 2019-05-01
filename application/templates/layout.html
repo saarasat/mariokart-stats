@@ -25,23 +25,13 @@
                 <a class="dropdown-item" href="{{ url_for('races_index')}}">Stats of all races</a>
                 <a class="dropdown-item" href="{{ url_for('tracks_index')}}">Stats of all tracks</a>
                 <a class="dropdown-item" href="{{ url_for('players_statistics_search')}}">Stats by player</a>
-              
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('players_create')}} ">Manage players</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth_users_updateone')}} ">Change login credentials</a>
+              <a class="nav-link" href="{{ url_for('auth_users_updateone')}} ">Change login credentials</a>
             </li>
-  
-            {% if admin %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('tracks_create')}} ">Add a track</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('characters_create')}} ">Add a character</a>
-            </li>
-            {% endif %}
           </ul>
         <div class="form-inline mt-2 mt-md-0">
           <a href="{{ url_for('auth_logout') }}">Hello {{ current_user.name }} -- Log out</a>
@@ -50,19 +40,21 @@
     {% else %}
       <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="/">Mario Kart 64 Statistics</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
           </ul>
       </nav>
-      {% endif %}
+    {% endif %}
+    
     <main role="main" class="container">                    
     {% block body %}
 
     {% endblock %}
     </main>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

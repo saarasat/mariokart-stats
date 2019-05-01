@@ -1,13 +1,10 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
-
-  
   <div>
     <h3>Do you want to add another player's results?</h3>
     <br>
-    <a class="btn btn-primary" href="{{ url_for('races_create')}}" role="button">Yes, please</a>
-    <a class="btn btn-secondary" href="{{ url_for('races_index')}}" role="button">Nope, just me playing</a>
+      <a class="btn btn-primary" href="{{ url_for('races_create')}}" role="button">Yes, please</a>
+      <a class="btn btn-secondary" href="{{ url_for('races_index')}}" role="button">Nope, just me playing</a>
   </div>
 {% endblock %}

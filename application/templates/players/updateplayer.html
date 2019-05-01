@@ -1,19 +1,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
 <form action="{{ url_for('players_updateone', id=id) }}" method="POST" role="form">    
-    <div class="form-group">
-      <h2>Update player name</h2>
-      <br>
-      <b>Old player name: {{ handle }}</b>
-      <br>
-      <label for="handle" class="sr-only">Player Handle</label>
-      <input type="text" class="form-control" id="handle" name="handle" placeholder="New name">      
-    </div>                         
-      <button type="submit" class="btn btn-success">Update handle</button>
+  <div class="form-group">
+    <h2>Update player name</h2>
+    <br>
+    <b>Old player name: {{ handle }}</b>
+    <br>
+    <label for="handle" class="sr-only">Player Handle</label>
+    <input type="text" class="form-control" id="handle" name="handle" placeholder="New name">      
+  </div>                         
+  <button type="submit" class="btn btn-success">Update handle</button>
 </form>
 <br>
-  {{error}}
+
+{{error}}
   
 {% endblock %}
 

@@ -9,7 +9,8 @@ from application.tracks.models import Track
 @app.route("/tracks", methods=["GET"])
 @login_required
 def tracks_index():
-    return render_template("tracks/listtracks.html", tracks=Track.query.all(), basic_stats=Track.tracks_basic_stats(id=current_user.id))
+    return render_template("tracks/listtracks.html", tracks=Track.query.all(), 
+    basic_stats=Track.tracks_basic_stats(id=current_user.id))
 
 
 @app.route("/delete_track/<int:id>", methods=["POST"])

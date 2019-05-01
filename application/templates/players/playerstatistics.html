@@ -3,65 +3,58 @@
 {% block body %}
   
   {% if basic_stats is defined %}
+  {% for player in basic_stats %}
   <div>
-    {% for player in basic_stats %}
-      <main role="main" class="inner cover">
-        <h1 class="cover-heading" >Player: <span class="text-info">{{player.Player}}</span></h1>
-      </main>
-    </div>
+    <main role="main" class="inner cover">
+      <h1 class="cover-heading">Player: <span class="text-info">{{player.Player}}</span></h1>
+    </main>
     <br>
-    <table>
-      <tr>
-        <td><h5>Races played in total : {{player.Races}}</h5></td>
-      </tr>
-      {% if races_won is defined %}
-      {% for player in races_won%}
-      <tr>
-        <td><h5>Races won: {{player.Wins}}</h5></td>
-      </tr>
-      {% endfor %}
-      {% endif %}
-    </table>
   </div>
 
-  <br>
-  <br>
-  <div class="container">
-    <div class="row">
-      <h4>Results by character</h4>
-    </div>
-    <div class="row">
-      <td><h6 class="text-muted">Favorite character: {{player.Character}}</h6></td>
-    </div>
-  <br>
-    <div class="row">
-      <div class="col">
-    <div class="table-responsive table-sm">
-      <table class="table align-center">
-        <thead>
-          <tr>
-            <th scope="col">Character</th>
-            <th scope="col">Times Played</th>
-          </tr>
-        </thead>
-        {% if characters_played is defined %}
-        <tbody>
-          {% for character in characters_played %}
-          <tr>
-            <td scope="row">{{character.Character}}</td>
-            <td>{{character.Races}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        {% endif %}    
-      </table>
-    </div>
-  </div>
-
+  <table>
+    <tr><h5>Races played in total : {{player.Races}}</h5></tr>
+    {% if races_won is defined %}
+    {% for player in races_won%}
+      <tr><h5>Races won: {{player.Wins}}</h5></tr>
     {% endfor %}
     {% endif %}
+  </table>
+  <br>
+  <br>
 
-  
+  <div class="container">
+    <div class="row"><h4>Results by character</h4></div>
+    <div class="row"><h6 class="text-muted">Favorite character: {{player.Character}}</h6></div>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  {% if characters_played is defined %}
+    <br>
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive table-sm">
+          <table class="table align-center">
+            <thead>
+              <tr>
+                <th scope="col">Character</th>
+                <th scope="col">Times Played</th>
+              </tr>
+            </thead>          
+            <tbody>
+            {% for character in characters_played %}
+              <tr>
+                <td scope="row">{{character.Character}}</td>
+                <td>{{character.Races}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>    
+          </table>    
+        </div>
+      </div>
+  {% endif %}
+
+  {% if characters_won is defined %}
       <div class="col">
         <div class="table-responsive table-sm">
           <table class="table align-center">
@@ -71,7 +64,6 @@
                 <th scope="col">Times Won</th>
               </tr>
             </thead>
-            {% if characters_won is defined %}
             <tbody>
               {% for character in characters_won %}
               <tr>
@@ -80,109 +72,100 @@
               </tr>
               {% endfor %}
             </tbody>
-            {% endif %}    
           </table>
         </div>
       </div>
     </div>
-      
-      
-
-  </div>
-  <br>
-
-  {% if tracks_played is defined %}
-  <div class="container">
-
-  <div class="row">
-
-  <h4>Results by track</h4>
-  </div>
-  <div class="row">
-  {% if favorite_tracks is defined %}
-  <td><h6 class="text-muted">Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h6></td>
+    <br>
   {% endif %}
-</div>
+
+  <div class="container">
+    <div class="row"><h4>Results by track</h4></div>
+    <div class="row">
+      {% if favorite_tracks is defined %}
+        <td><h6 class="text-muted">Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h6></td>
+      {% endif %}
+    </div>
   </div>
+  
+  {% if tracks_played is defined %}
   <br>
-      <div class="row">
-    
-  <div class="col">
-  <div class="table-responsive table-sm">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Track</th>
-          <th scope="col">Times played</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for track in tracks_played %}
-        <tr>
-          <td scope="row">{{track.Track}}</td>
-          <td>{{track.Races}}</td>
-          
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  </div>
-  <br>
+    <div class="row">  
+      <div class="col">
+        <div class="table-responsive table-sm">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Track</th>
+                <th scope="col">Times played</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for track in tracks_played %}
+              <tr>
+                <td scope="row">{{track.Track}}</td>
+                <td>{{track.Races}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <br>
   {% endif %}
 
   {% if tracks_won is defined %}
+      <div class="col">
+        <div class="table-responsive table-sm">
+          <table class="table align-center">
+            <thead>
+              <tr>
+                <th scope="col">Track</th>
+                <th scope="col">Times won</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for track in tracks_won %}
+              <tr>
+                <td scope="row">{{track.Track}}</td>
+                <td>{{track.Races}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   <br>
-  <div class="col">
-  <div class="table-responsive table-sm">
-    <table class="table align-center">
-      <thead>
-        <tr>
-          <th scope="col">Track</th>
-          <th scope="col">Times won</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for track in tracks_won %}
-        <tr>
-          <td scope="row">{{track.Track}}</td>
-          <td>{{track.Races}}</td>
-          
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <br>
-</div>
   {% endif %}
-</div>
-  </div>
+  
+  
+  <h4>All races</h4>
   
   {% if race_stats is defined %}
-  <h4>All races</h4>
   <br>
-  <div class="table-responsive table-sm">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Track</th>
-          <th scope="col">Placement</th>
-          <th scope="col">Character</th>
-          <th scope="col">FinishTime</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for race in race_stats %}
-        <tr>
-          <td scope="row">{{race.Track}}</td>
-          <td>{{race.Placement}}</td>
-          <td>{{race.Character}}</td>
-          <td>{{race.FinishTime}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% endif %}
+    <div class="table-responsive table-sm">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Track</th>
+            <th scope="col">Placement</th>
+            <th scope="col">Character</th>
+            <th scope="col">FinishTime</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for race in race_stats %}
+          <tr>
+            <td scope="row">{{race.Track}}</td>
+            <td>{{race.Placement}}</td>
+            <td>{{race.Character}}</td>
+            <td>{{race.FinishTime}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endif %}
+
 {% endblock %}
