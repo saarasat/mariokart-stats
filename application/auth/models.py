@@ -7,10 +7,9 @@ class User(Base):
     __tablename__= "account"
 
     name = db.Column(db.String(100), nullable=False)
-    username = db.Column(db.String(60), nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-    admin = db.Column(db.Boolean())
-
+    username = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    
     players = db.relationship("Player", backref='account', lazy=True)
     races = db.relationship("Race", backref='account', lazy=True)
 
@@ -18,8 +17,7 @@ class User(Base):
         self.name = name
         self.username = username
         self.password = password
-        self.admin = admin
-  
+    
     def get_id(self):
         return self.id
 

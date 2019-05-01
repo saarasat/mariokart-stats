@@ -29,10 +29,10 @@ def players_create():
         character = Character.query.filter_by(id = form.character.data).first()
         secondTrack = Track.query.filter_by(id = form.secondTrack.data).first()
 
-        handle = Player.query.filter_by(handle=form.handle.data).first()   
+        handle = Player.query.filter_by(handle=form.handle.data, account_id=current_user.id).first()
 
         if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
-            return render_template("players/listplayers.html", players=players, form=form, error="Name must be unique and 3-100 characters")
+            return render_template("players/listplayers.html", players=players, form=form, error="Name must be unique and between 3-100 characters")
     
         player = Player(handle=form.handle.data, character_id=character.id)
     
@@ -46,6 +46,8 @@ def players_create():
 
         secondTrack.favoritetracks.append(player)
         db.session().commit()
+        
+        return render_template("players/listplayers.html", players=Player.query.filter_by(account_id = current_user.id).all(), form=form, error="New player added!")
 
     return redirect(url_for("players_create"))
 

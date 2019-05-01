@@ -4,9 +4,7 @@ from flask_login import current_user, login_user, logout_user
 from application import app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, UserForm
-from application.character.forms import CharacterForm
 from application.character.models import Character
-from application.tracks.forms import TrackForm
 from application.tracks.models import Track
 
 

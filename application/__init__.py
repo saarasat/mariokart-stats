@@ -65,8 +65,6 @@ from application.tracks import models
 from application.tracks import views
 
 from application.character import models
-from application.character.models import Character
-from application.character import views
 
 from application.auth import models
 from application.auth import views

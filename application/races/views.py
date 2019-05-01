@@ -41,7 +41,7 @@ def races_create():
             return render_template("races/newrace.html", form = form, error="Create a player first!")
     
         if not form.character.data or not form.track.data or not form.placement.data or not form.player.data or not form.finish_time.data:        
-            return render_template("races/newrace.html", form = form, error="All fields must be filled out")
+            return render_template("races/newrace.html", form = form, error="All fields must be filled out correctly")
     
         track = Track.query.filter_by(id = form.track.data).first()
         character = Character.query.filter_by(id = form.character.data).first()
