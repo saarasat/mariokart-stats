@@ -6,7 +6,7 @@
     <div>
     {% for player in basic_stats %}
     <main role="main" class="inner cover">
-        <h1 class="cover-heading">Player: {{player.Player}}</h1>
+        <h1 class="cover-heading" >Player: <span class="text-info">{{player.Player}}</span></h1>
         <p class="lead"></p>
         <p class="lead">
         </p>
@@ -31,9 +31,10 @@
   <br>
   <br>
   <div>
-      <h3>Results by character</h3>
-      <h5>Favorite character: {{player.Character}}</h5>
+  <h4>Results by character</h4>
   
+  <td><h6 class="text-muted">Favorite character: {{player.Character}}</h6></td>
+  <br>
   <div class="table-responsive table-sm">
       <table class="table align-center">
         <thead>
@@ -59,17 +60,25 @@
   </div>
   <br>
 
-  {% if track_stats is defined %}
+  {% if tracks_played is defined %}
+  <div class="container">
 
+  <div class="row">
 
-  <h3>Results by track</h3>
+  <h4>Results by track</h4>
+  </div>
+  <div class="row">
   {% if favorite_tracks is defined %}
-  <td><h5>Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h5></td>
+  <td><h6 class="text-muted">Favorite tracks: {{favorite_tracks[0].Track}}, {{favorite_tracks[1].Track}} </h6></td>
   {% endif %}
-
+</div>
+  </div>
   <br>
+      <div class="row">
+    
+  <div class="col">
   <div class="table-responsive table-sm">
-    <table class="table align-center">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">Track</th>
@@ -77,7 +86,33 @@
         </tr>
       </thead>
       <tbody>
-        {% for track in track_stats %}
+        {% for track in tracks_played %}
+        <tr>
+          <td scope="row">{{track.Track}}</td>
+          <td>{{track.Races}}</td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+  <br>
+  {% endif %}
+
+  {% if tracks_won is defined %}
+  <br>
+  <div class="col">
+  <div class="table-responsive table-sm">
+    <table class="table align-center">
+      <thead>
+        <tr>
+          <th scope="col">Track</th>
+          <th scope="col">Times won</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for track in tracks_won %}
         <tr>
           <td scope="row">{{track.Track}}</td>
           <td>{{track.Races}}</td>
@@ -88,8 +123,11 @@
     </table>
   </div>
   <br>
+</div>
   {% endif %}
-
+</div>
+  </div>
+  
   {% if race_stats is defined %}
   <h4>All races</h4>
   <br>
@@ -109,7 +147,7 @@
           <td scope="row">{{race.Track}}</td>
           <td>{{race.Placement}}</td>
           <td>{{race.Character}}</td>
-          <td>{{race.FinishTime}}</td>
+          <td>{{race.FinishTime[0:5]}}</td>
         </tr>
         {% endfor %}
       </tbody>

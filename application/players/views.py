@@ -78,18 +78,18 @@ def players_statistics_search():
     form = SearchForm(request.form)
     form.handle.choices = [(player.id, player.handle) for player in Player.query.filter_by(account_id=current_user.id).all()]
     if request.method == "GET":
-        return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
+        return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(id=current_user.id))
 
     if request.method == "POST":
         if not form.handle.data:
-            return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
+            return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(id=current_user.id), error="Go create some stats first!")
         if not form.handle.choices:
-            return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
+            return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(id=current_user.id), error="Go create some stats first!")
 
         player = Player.query.filter_by(id=form.handle.data).first()
         return redirect(url_for("players_statisticsone", id=player.id))
 
-    return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
+    return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(id=current_user.id))
 
 @app.route("/delete_player/<int:id>", methods=["GET", "POST"])
 @login_required(role="USER")
@@ -130,5 +130,7 @@ def players_updateone(id):
 def players_statisticsone(id):
 
     return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),
-    basic_stats=Player.player_basic_stats(id), races_won=Player.player_races_won(id), character_stats=Player.player_character_stats(id), favorite_tracks=Player.player_find_favoriteTracks(id),
-    track_stats=Player.player_track_stats(id), race_stats=Player.player_all_race_stats(id))
+    basic_stats=Player.player_basic_stats(id), races_won=Player.player_races_won(id), 
+    character_stats=Player.player_character_stats(id), 
+    favorite_tracks=Player.player_find_favoriteTracks(id), tracks_played=Player.player_tracks_played(id), tracks_won=Player.player_tracks_won(id),
+    race_stats=Player.player_all_race_stats(id))

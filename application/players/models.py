@@ -86,12 +86,28 @@ class Player(Base):
         return response
 
     @staticmethod
-    def player_track_stats(id):
+    def player_tracks_played(id):
         stmt = text("SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id"
         " GROUP BY Track"
-        " ORDER BY Races DESC").params(id=id)
+        " ORDER BY Track.name DESC").params(id=id)
+        
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"Track":row[0], "Races":row[1]})
+
+        return response
+
+    @staticmethod
+    def player_tracks_won(id):
+        stmt = text("SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
+        " JOIN Track ON Race.track_id = Track.id"
+        " WHERE player_id = :id AND Race.placement = 1"
+        " GROUP BY Track"
+        " ORDER BY Track.name DESC").params(id=id)
         
         res = db.engine.execute(stmt)
 
@@ -120,12 +136,12 @@ class Player(Base):
         return response
 
     @staticmethod
-    def player_ranking():
+    def player_ranking(id):
         stmt = text("SELECT Player.handle, COUNT(Race.placement) AS Wins FROM Race"
         " JOIN Player ON Player.id = Race.player_id"
-        " WHERE Race.placement = 1"
+        " WHERE Race.placement = 1 AND Player.account_id = :id"
         " GROUP BY Player.handle"
-        " ORDER BY Wins DESC")
+        " ORDER BY Wins DESC").params(id=id)
 
         res = db.engine.execute(stmt)
         response = []

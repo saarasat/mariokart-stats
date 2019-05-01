@@ -11,7 +11,6 @@
           <th scope="col">Track</th>
           <th scope="col">Times played</th>
           <th scope="col">Fastest Time</th>
-          <th scope="col">Fastest player</th>
         </tr>
       </thead>
       <tbody>
@@ -19,10 +18,34 @@
         <tr>
           <td>{{ track.Track }}</td>
           <td>{{ track.Races }}</td>
-          <td>{{ track.BestTime }}</td>
-          <td>{{ track.Player }}</td>
+          <td>{{ track.BestTime[0:5] }}</td>
         </tr>
-      {% endfor %}      
+      {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endif %}
+
+{% if fastest_player is defined %}
+<div class="table-responsive table-sm ">
+  <table class="table col align-self-center">
+      <thead>
+        <tr>
+          <th scope="col">Track</th>
+          <th scope="col">Fastest Time</th>
+          <th scope="col">Fastest player</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for track in basic_stats %}
+      {% for player in fastest_player %}
+        <tr>
+          <td>{{ track.Track }}</td>
+          <td>{{ track.BestTime[0:8] }}</td>
+          <td>{{ player.Player }}</td>
+        </tr>
+      {% endfor %}
+      {% endfor %}     
       </tbody>
   </table>
 </div>

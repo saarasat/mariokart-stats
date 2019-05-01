@@ -23,7 +23,7 @@
         <td>{{ race.track }}</td>
         <td>{{ race.placement }}</td>
         <td>{{ race.character }}</td>
-        <td>{{ race.finish_time }}</td>
+        <td>{{ race.finish_time}}</td>
         <td>
           <form action="{{url_for('races_deleteone', id=race.id)}}" method="POST">
             <input type="submit" value="Delete">
