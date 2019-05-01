@@ -1,6 +1,6 @@
 # Mario Kart Statistics
 
-Done for the database -course in spring 2019. Includes a database for controlling player, winner and race statistics in Mario Kart 64. Check user stories for more detailed information.
+Done for the database -course in spring 2019. Includes a database for controlling player, winner and race statistics in Mario Kart 64. Check user stories and database schema for more detailed information.
 
 [Database schema](https://github.com/saarasat/mariokart-stats/blob/master/documentation/Database%20schema.md)
 
