@@ -131,6 +131,6 @@ def players_statisticsone(id):
 
     return render_template("players/playerstatistics.html", players=Player.query.filter_by(account_id = current_user.id).all(),
     basic_stats=Player.player_basic_stats(id), races_won=Player.player_races_won(id), 
-    character_stats=Player.player_character_stats(id), 
+    characters_played=Player.player_characters_played(id), characters_won=Player.player_characters_won(id), 
     favorite_tracks=Player.player_find_favoriteTracks(id), tracks_played=Player.player_tracks_played(id), tracks_won=Player.player_tracks_won(id),
     race_stats=Player.player_all_race_stats(id))

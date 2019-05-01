@@ -3,13 +3,10 @@
 {% block body %}
   
   {% if basic_stats is defined %}
-    <div>
+  <div>
     {% for player in basic_stats %}
-    <main role="main" class="inner cover">
+      <main role="main" class="inner cover">
         <h1 class="cover-heading" >Player: <span class="text-info">{{player.Player}}</span></h1>
-        <p class="lead"></p>
-        <p class="lead">
-        </p>
       </main>
     </div>
     <br>
@@ -27,36 +24,70 @@
     </table>
   </div>
 
-  
   <br>
   <br>
-  <div>
-  <h4>Results by character</h4>
-  
-  <td><h6 class="text-muted">Favorite character: {{player.Character}}</h6></td>
+  <div class="container">
+    <div class="row">
+      <h4>Results by character</h4>
+    </div>
+    <div class="row">
+      <td><h6 class="text-muted">Favorite character: {{player.Character}}</h6></td>
+    </div>
   <br>
-  <div class="table-responsive table-sm">
+    <div class="row">
+      <div class="col">
+    <div class="table-responsive table-sm">
       <table class="table align-center">
         <thead>
           <tr>
             <th scope="col">Character</th>
-            <th scope="col">Times won</th>
+            <th scope="col">Times Played</th>
           </tr>
         </thead>
-        {% if character_stats is defined %}
+        {% if characters_played is defined %}
         <tbody>
-          {% for character in character_stats %}
+          {% for character in characters_played %}
           <tr>
             <td scope="row">{{character.Character}}</td>
-            <td>{{character.Wins}}</td>
+            <td>{{character.Races}}</td>
           </tr>
           {% endfor %}
         </tbody>
         {% endif %}    
       </table>
     </div>
+  </div>
+
     {% endfor %}
     {% endif %}
+
+  
+      <div class="col">
+        <div class="table-responsive table-sm">
+          <table class="table align-center">
+            <thead>
+              <tr>
+                <th scope="col">Character</th>
+                <th scope="col">Times Won</th>
+              </tr>
+            </thead>
+            {% if characters_won is defined %}
+            <tbody>
+              {% for character in characters_won %}
+              <tr>
+                <td scope="row">{{character.Character}}</td>
+                <td>{{character.Wins}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% endif %}    
+          </table>
+        </div>
+      </div>
+    </div>
+      
+      
+
   </div>
   <br>
 

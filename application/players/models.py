@@ -56,15 +56,27 @@ class Player(Base):
 
 
     @staticmethod
-    def player_character_stats(id):
-        stmt = text("SELECT Character.name AS Character,"
-        " COUNT(Race.id) AS Wins FROM Player"
-        " JOIN Race ON Player.id = Race.player_id"
+    def player_characters_played(id):
+        stmt = text("SELECT Character.name AS Character, COUNT(Race.character_id) AS Races FROM Race"
         " JOIN Character ON Race.character_id = Character.id"
-        " WHERE Player.id = :id AND Race.placement = 1"
+        " WHERE player_id = :id"
         " GROUP BY Character"
-        " ORDER BY Wins DESC").params(id=id)
+        " ORDER BY Character").params(id=id)
         
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"Character":row[0], "Races":row[1]})
+        return response
+
+    @staticmethod
+    def player_characters_won(id):
+        stmt = text("SELECT Character.name AS Character, COUNT(Race.character_id) AS Races FROM Race"
+        " JOIN Character ON Race.character_id = Character.id"
+        " WHERE player_id = :id AND Race.placement = 1"
+        " GROUP BY Character"
+        " ORDER BY Character").params(id=id)     
         res = db.engine.execute(stmt)
 
         response = []
