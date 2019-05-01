@@ -20,30 +20,32 @@ def players_create():
     if request.method == "GET":
         return render_template("players/listplayers.html", players=players, form=form)
 
-    firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
-    character = Character.query.filter_by(id = form.character.data).first()
-    secondTrack = Track.query.filter_by(id = form.secondTrack.data).first()
+    if request.method == "POST":
 
-    if not character or not firstTrack or not secondTrack or not form.handle.data:        
-        return render_template("players/listplayers.html", players=players, form=form, error="All fields must be filled out")
+        if not form.character.data or not form.firstTrack.data or not form.secondTrack.data or not form.handle.data:        
+            return render_template("players/listplayers.html", players=players, form=form, error="All fields must be filled out")
 
-    handle = Player.query.filter_by(handle=form.handle.data).first()   
+        firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
+        character = Character.query.filter_by(id = form.character.data).first()
+        secondTrack = Track.query.filter_by(id = form.secondTrack.data).first()
 
-    if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
-        return render_template("players/listplayers.html", players=players, form=form, error="Name must be unique and 3-100 characters")
+        handle = Player.query.filter_by(handle=form.handle.data).first()   
+
+        if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
+            return render_template("players/listplayers.html", players=players, form=form, error="Name must be unique and 3-100 characters")
     
-    player = Player(handle=form.handle.data, character_id=character.id)
+        player = Player(handle=form.handle.data, character_id=character.id)
     
-    player.account_id = current_user.id
+        player.account_id = current_user.id
 
-    db.session().add(player)
-    db.session().commit()
+        db.session().add(player)
+        db.session().commit()
 
-    firstTrack.favoritetracks.append(player)
-    db.session().commit()
+        firstTrack.favoritetracks.append(player)
+        db.session().commit()
 
-    secondTrack.favoritetracks.append(player)
-    db.session().commit()
+        secondTrack.favoritetracks.append(player)
+        db.session().commit()
 
     return render_template("players/listplayers.html", players=players, form=form, error="Player successfully added!")
 
