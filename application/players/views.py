@@ -47,6 +47,7 @@ def players_create():
         secondTrack.favoritetracks.append(player)
         db.session().commit()
 
+
     return render_template("players/listplayers.html", players=players, form=form, error="Player successfully added!")
 
 @app.route("/secondtrack/<int:id>")
@@ -101,7 +102,7 @@ def players_deleteone(id):
     db.session.query(Player).filter_by(id=id).delete()
     db.session.commit()
 
-    return redirect(url_for("players_index"))
+    return redirect(url_for("players_create"))
 
 @app.route("/update_player/<int:id>", methods=["GET","POST"])
 @login_required(role="USER")
@@ -118,7 +119,7 @@ def players_updateone(id):
     player.handle = form.handle.data
     db.session.commit()
 
-    return redirect(url_for("players_index"))
+    return redirect(url_for("players_create"))
 
 @app.route("/statistics/<int:id>", methods=["GET"])
 @login_required(role="USER")
