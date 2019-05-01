@@ -2,6 +2,45 @@
 
 The idea is that anyone can update racing statistics from Mario Kart 64. The person (scorekeeper) can be either the player themselves, or a someone who keeps the score players playing the game. The concept “race” includes the performance of one player in one track. That way the app can contain either the statistics of only one player who wants to follow his progress or for instance the results of a group of friends playing the game.
 
+## User
+
+1. A new account can be created:
+
+<pre>
+SQL (example):
+
+<code>
+"INSERT INTO account" 
+        " (date_created, date_modified, name, username, password)"
+        " VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)," 
+        ('New name', 'new user', 'password');</code>
+</pre>
+
+2. A user can login:
+
+<pre>
+SQL (example):
+
+<code>
+"SELECT account.id AS account_id," 
+        " account.date_created AS account_date_created," 
+        " account.date_modified AS account_date_modified," 
+        " account.name AS account_name," 
+        " account.username AS account_username," 
+        " account.password AS account_password" 
+        " FROM account WHERE account.id = ?," (1);</code> 
+</pre>
+      
+3. User can update their account information:
+
+<pre>
+SQL (example):
+
+<code>
+"UPDATE account SET date_modified=CURRENT_TIMESTAMP,"
+        "name=? WHERE account.id = ?," ('Updated Name', 1);</code>
+</pre>
+
 
 ## Scorekeeper
 
@@ -35,13 +74,15 @@ SQL (example):
 <pre>
 SQL for both 1 and 2:
 
-<code>"SELECT Track.name AS Track,"
-        " COUNT(Race.track_id) AS Races,"
-        " MIN(Race.finish_time) AS BestTime,"
-        " Player.handle AS Player FROM Track" 
-        " LEFT JOIN Race ON Track.id = Race.track_id "
-        " LEFT JOIN Player ON Race.player_id = Player.id"
-        " GROUP BY Track.name, Player.handle ORDER BY Races, Player.handle"</code>
+<code>
+"SELECT Track.name AS Track,"
+       " COUNT(Race.track_id) AS Races,"
+       " MIN(Race.finish_time) AS BestTime FROM Track" 
+       " LEFT JOIN Race ON Track.id = Race.track_id "
+       " LEFT JOIN Player ON Race.player_id = Player.id"
+       " WHERE Race.account_id = :id"
+       " GROUP BY Track.name ORDER BY Races"
+       " DESC").params(id=id)</code>
 </pre>
 
 
@@ -79,13 +120,13 @@ SQL (included in this query in the actual application)
 <pre>
 SQL
 
-<code>"SELECT Character.name AS Character,"
-        " COUNT(Race.id) AS Wins FROM Player"
-        " JOIN Race ON Player.id = Race.player_id"
+<code>
+"SELECT Character.name AS Character," 
+        " COUNT(Race.character_id) AS Races FROM Race"
         " JOIN Character ON Race.character_id = Character.id"
-        " WHERE Player.id = :id AND Race.placement = 1"
+        " WHERE player_id = :id AND Race.placement = 1"
         " GROUP BY Character"
-        " ORDER BY Wins DESC").params(id=id)</code>
+        " ORDER BY Character").params(id=id)</code>
 </pre>
 
 
@@ -94,7 +135,8 @@ SQL
 <pre>
 SQL
 
-<code>"SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
+<code>
+"SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id AND Race.placement = 1"
         " GROUP BY Track"
@@ -107,16 +149,25 @@ SQL
 <pre>
 SQL (included in this query in the actual application)
 
-"SELECT Track.name AS Track,"
-        " Race.finish_time AS FinishTime, Character.name AS Character,"
-        " Race.placement AS Placement FROM Race"
+<code>
+"SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
-        " JOIN Character ON Race.character_id = Character.id"
         " WHERE player_id = :id"
-        " GROUP BY Track, Race.finish_time, Race.placement, Character.name"
-        " ORDER BY Race.placement, Race.finish_time").params(id=id)
+        " GROUP BY Track"
+        " ORDER BY Track.name DESC").params(id=id)</code>
 </pre>
 
 ### Character-specific records: 
 
 1. As a scorekeeper I can search how many times a certain player has played with a single character
+
+<pre>
+SQL (included in this query in the actual application)
+
+<code>
+"SELECT Character.name AS Character, COUNT(Race.character_id) AS Races FROM Race"
+        " JOIN Character ON Race.character_id = Character.id"
+        " WHERE player_id = :id AND Race.placement = 1"
+        " GROUP BY Character"
+        " ORDER BY Character").params(id=id)</code>
+</pre>
