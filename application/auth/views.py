@@ -138,10 +138,13 @@ def auth_users_updateone():
             if len(newPassword) < 3 or len(newPassword) > 100:
                 return render_template("auth/updateuser.html", form=form, error = "Password must be between 3-100 characters")
             current_user.password = newPassword
+        
+        if not newName and not newUsername and not newPassword:
+            return render_template("auth/updateuser.html", form=form, error = "Add some data first!")
 
         db.session().commit()
 
-        return render_template("auth/updateuser.html", form=form, error = "Account credentials updated!", username=newUsername, name=newName)
+        return render_template("auth/updateuser.html", form=form, error = "Account info updated!", username=newUsername, name=newName)
 
 
 @app.route("/auth/logout")
