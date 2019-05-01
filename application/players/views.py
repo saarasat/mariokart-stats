@@ -22,18 +22,17 @@ def players_create():
 
     firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
     character = Character.query.filter_by(id = form.character.data).first()
-    character_id = character.id    
     secondTrack = Track.query.filter_by(id = form.secondTrack.data).first()
 
     if not character or not firstTrack or not secondTrack or not form.handle.data:        
         return render_template("players/listplayers.html", players=players, form=form, error="All fields must be filled out")
 
-    handle = Player.query.filter_by(handle=form.handle.data).first()
-    
+    handle = Player.query.filter_by(handle=form.handle.data).first()   
+
     if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
         return render_template("players/listplayers.html", players=players, form=form, error="Name must be unique and 3-100 characters")
     
-    player = Player(handle=form.handle.data, character_id=character_id)
+    player = Player(handle=form.handle.data, character_id=character.id)
     
     player.account_id = current_user.id
 
