@@ -117,6 +117,9 @@ def players_deleteone(id):
 def players_updateone(id):
     player = Player.query.get(id)
 
+    if player.account_id != current_user.id:
+        return render_template("/noaccess.html")
+
     if request.method == "GET":
         return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle)
     form = PlayerForm(request.form)
