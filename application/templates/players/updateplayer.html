@@ -1,14 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form action="{{ url_for('players_updateone', id=id) }}" method="POST" role="form">
-  {{ form.csrf }}
-    <ul>
-      {% for error in form.handle.errors %}
-        <li>{{ error }}</li>
-      {% endfor %}
-    </ul>
-    
+<form action="{{ url_for('players_updateone', id=id) }}" method="POST" role="form">    
     <div class="form-group">
       <h2>Update player name</h2>
       <br>
@@ -19,6 +12,8 @@
     </div>                         
       <button type="submit" class="btn btn-success">Update handle</button>
 </form>
+<br>
+  {{error}}
   
 {% endblock %}
 

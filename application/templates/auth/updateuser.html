@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if current_user.is_authenticated %}
+<form method="POST" action="{{ url_for('auth_users_updateone')}}">
+    <div class="form-group">
+      <h2 class="text-center">Update account info</h2>
+      <p class="text-center">Fill the fields you want to update</p>
+        <div class="form-group">
+          New name <span class="text-muted">(optional):</span>
+          {{ form.name(class="form-control")}}
+          <small class="text-muted">Current name: {{current_user.name}} </small>
+        </div>
+        <div class="form-group">
+          New username <span class="text-muted">(optional):</span>
+          {{ form.username(class="form-control")}}
+          <small class="text-muted">Current username: {{current_user.username}}</small>
+        </div>
+        <div class="form-group">
+          New password <span class="text-muted">(optional):</span>
+          {{ form.password(class="form-control")}}
+        </div>
+      </div>
+      <p>{{ error }}</p>
+      <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Update"/>
+        </div>
+        </form>
+{% endif %}
+{% endblock %}

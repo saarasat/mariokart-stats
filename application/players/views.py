@@ -79,10 +79,8 @@ def players_statistics_search():
         return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
 
     if request.method == "POST":
-
         if not form.handle.data:
             return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
-        
         if not form.handle.choices:
             return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
 
@@ -118,7 +116,7 @@ def players_updateone(id):
 
     handle = Player.query.filter_by(handle=form.handle.data).first()
     if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
-        return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle, error="Name must be between 3-100 characters")
+        return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle, error="Name must be unique and between 3-100 characters")
 
     player.handle = form.handle.data
     db.session.commit()

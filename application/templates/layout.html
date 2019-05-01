@@ -30,6 +30,10 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('players_create')}} ">Manage players</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth_users_updateone')}} ">Change login credentials</a>
+            </li>
+  
             {% if admin %}
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('tracks_create')}} ">Add a track</a>

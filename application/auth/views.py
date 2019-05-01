@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import current_user, login_user, logout_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, UserForm
 from application.character.forms import CharacterForm
@@ -109,6 +109,43 @@ def auth_create_user():
         return redirect(url_for("index"))
 
     return redirect(url_for("index"))    
+
+@app.route("/update_user/", methods=["GET","POST"])
+def auth_users_updateone():   
+    if request.method == "GET":
+        return render_template("auth/updateuser.html", form = UserForm())
+    
+    if request.method == "POST":
+        form = UserForm(request.form)
+
+        newName = form.name.data
+        newUsername = form.username.data
+        newPassword = form.password.data
+
+        
+        if User.query.filter_by(username=newUsername).first():
+            if current_user.username != newUsername:
+                return render_template("auth/updateuser.html", form=form, error = "Username already taken")
+
+        if newName:
+            if len(newName) < 3 or len(newName) > 100:
+                return render_template("auth/updateuser.html", form=form, error = "Name must be between 3-100 characters")
+            current_user.name = newName
+
+        if newUsername:
+            if len(newUsername) < 3 or len(newUsername) > 100:
+                return render_template("auth/updateuser.html", form=form, error = "Username must be between 3-100 characters")
+            current_user.username = newUsername
+        
+        if newPassword:
+            if len(newPassword) < 3 or len(newPassword) > 100:
+                return render_template("auth/updateuser.html", form=form, error = "Password must be between 3-100 characters")
+            current_user.password = newPassword
+
+        db.session().commit()
+
+        return render_template("auth/updateuser.html", form=form, error = "Updated!", username=newUsername, name=newName)
+
 
 @app.route("/auth/logout")
 def auth_logout():
