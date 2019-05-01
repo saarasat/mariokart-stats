@@ -35,25 +35,30 @@ def races_create():
     if request.method == "GET":
         return render_template("races/newrace.html", form = form)
 
-    player = Player.query.filter_by(id = form.player.data).first()
-    track = Track.query.filter_by(id = form.track.data).first()
-    character = Character.query.filter_by(id = form.character.data).first()
+    if request.method == "POST":
+        
+        if not form.player.choices:
+            return render_template("races/newrace.html", form = form, error="Create a player first!")
+    
+        if not form.character.data or not form.track.data or not form.placement.data or not form.player.data or not form.finish_time.data:        
+            return render_template("races/newrace.html", form = form, error="All fields must be filled out")
+    
+        track = Track.query.filter_by(id = form.track.data).first()
+        character = Character.query.filter_by(id = form.character.data).first()
   
-    finish_time = form.finish_time.data
-    placement = form.placement.data
-    player_id = player.id
-    track_id = track.id
-    character_id = character.id
+        finish_time = form.finish_time.data
+        placement = form.placement.data
+        track_id = track.id
+        character_id = character.id
 
-    if not character_id or not track_id or not placement or not finish_time or not player_id:        
-        return render_template("races/newrace.html", form = form, error = "All fields must have input")
+        player = Player.query.filter_by(id = form.player.data).first()
+        player_id = player.id
     
-    
-    race = Race(finish_time=finish_time, placement=placement, player_id=player_id, track_id=track_id, character_id=character_id)
-    race.account_id = current_user.id
+        race = Race(finish_time=finish_time, placement=placement, player_id=player_id, track_id=track_id, character_id=character_id)
+        race.account_id = current_user.id
 
-    db.session().add(race)
-    db.session().commit()
+        db.session().add(race)
+        db.session().commit()
 
     return render_template("races/moreplayers.html")
 
