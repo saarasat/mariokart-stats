@@ -21,8 +21,6 @@ def index():
     if not user:
         return render_template("index.html", form = form, error = "No such username or password")
 
-    
-
     login_user(user)
     return redirect(url_for("index"))
 
@@ -34,7 +32,18 @@ def auth_create_user():
 
     form = UserForm(request.form)
 
-    user = User(form.name.data, form.username.data, form.password.data, form.admin.data)    
+    name = form.name.data
+    username = form.username.data
+    password = form.password.data
+
+    if len(name) < 3 or len(name) > 100 or len(username) < 3 or len(username) > 100 or len(password) < 3 or len(password) > 100:
+        return render_template("auth/userform.html", form=form, error = "All fields must be between 3-100 characters")
+
+    if User.query.filter_by(username=username).first():
+        return render_template("auth/userform.html", form=form, error = "Username already taken")
+
+    user = User(form.name.data, form.username.data, form.password.data, form.admin.data)
+        
     db.session().add(user)
     db.session().commit()
 

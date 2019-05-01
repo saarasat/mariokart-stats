@@ -1,5 +1,6 @@
-from flask import render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
+from datetime import time, datetime, timedelta
 
 from application import app, db
 from application.races.models import Race
@@ -7,6 +8,7 @@ from application.races.forms import RaceForm
 from application.character.models import Character
 from application.tracks.models import Track
 from application.players.models import Player
+
 
 @app.route("/races", methods=["GET"])
 @login_required
@@ -42,7 +44,11 @@ def races_create():
     player_id = player.id
     track_id = track.id
     character_id = character.id
- 
+
+    if not character_id or not track_id or not placement or not finish_time or not player_id:        
+        return render_template("races/newrace.html", form = form, error = "All fields must have input")
+    
+    
     race = Race(finish_time=finish_time, placement=placement, player_id=player_id, track_id=track_id, character_id=character_id)
     race.account_id = current_user.id
 

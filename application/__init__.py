@@ -27,7 +27,7 @@ login_manager.login_message = "Please login to use this functionality"
 # roles in login_required
 from functools import wraps
 
-def login_required(role="ADMIN"):
+def login_required(role="USER"):
     def wrapper(fn):
         @wraps(fn)
         def decorated_view(*args, **kwargs):

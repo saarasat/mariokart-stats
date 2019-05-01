@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, StringField, validators
+from wtforms import SelectField, StringField
 
 class PlayerForm(FlaskForm):
-    handle = StringField("Player handle", [validators.Length(min=3, max=100)])
-    firstTrack = SelectField("firstTrack", [validators.InputRequired()], choices=[])
-    secondTrack = SelectField("secondTrack", [validators.InputRequired()], choices=[])
-    character = SelectField("Character", [validators.InputRequired()], choices=[])
+    handle = StringField("Player handle")
+    firstTrack = SelectField("firstTrack", choices=[])
+    secondTrack = SelectField("secondTrack", choices=[])
+    character = SelectField("Character", choices=[])
 
     class Meta:
         csrf = False

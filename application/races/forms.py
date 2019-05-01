@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SelectField, StringField, TimeField, validators
+from wtforms import IntegerField, SelectField, StringField, TimeField
 
 class RaceForm(FlaskForm):
-    finish_time = TimeField("Finish time", [validators.InputRequired()])
-    placement = SelectField("Placement", [validators.InputRequired()], choices=[(1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8)])
-    track = SelectField("Track", [validators.InputRequired()], choices=[])
-    character = SelectField("Character", [validators.InputRequired()], choices=[])
-    player = SelectField("Player", [validators.InputRequired()], choices=[])
+    finish_time = TimeField("Finish time")
+    placement = SelectField("Placement", choices=[(1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8)])
+    track = SelectField("Track", choices=[])
+    character = SelectField("Character", choices=[])
+    player = SelectField("Player", choices=[])
 
     class Meta:
         csrf = False

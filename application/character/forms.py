@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators
+from wtforms import StringField
 
 class CharacterForm(FlaskForm):
    
-    name = StringField("Character name", [validators.Length(min=3, max=100)])
+    name = StringField("Character name")
     
     class Meta:
         csrf = False

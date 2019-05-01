@@ -8,32 +8,22 @@
         Name:
         {{ form.name(class="form-control")}}
       </div>
-      {% for error in form.name.errors %}
-      <li>{{ error }}</li>
-      <p></p>
-	    {% endfor %}
       <div class="form-group">
         Username:
         {{ form.username(class="form-control")}}
 
       </div>
-      {% for error in form.username.errors %}
-      <li>{{ error }}</li>
-      <p></p>
-	    {% endfor %}
       <div class="form-group">
         Password:
         {{ form.password(class="form-control")}}
 
       </div>
-      {% for error in form.password.errors %}
-      <li>{{ error }}</li>
-      <p></p>
-	    {% endfor %}
     </div>
+    <p>{{ error }}</p>
     <div class="text-center">
       <input class="btn btn-primary" type="submit" value="Create account"/>
       </div>
+
       </form>
 
 {% endblock %}

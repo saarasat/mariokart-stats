@@ -7,28 +7,32 @@ from application.players.forms import PlayerForm, SearchForm
 from application.character.models import Character
 from application.tracks.models import Track
 
-@app.route("/players", methods=["GET"])
+@app.route("/players", methods=["GET", "POST"])
 @login_required(role="USER")
-def players_index():
+def players_create():
+
     players = Player.query.filter_by(account_id = current_user.id).all()
     form = PlayerForm(request.form)
     form.firstTrack.choices = [(track.id, track.name) for track in Track.query.all()]
     form.secondTrack.choices = [(track.id, track.name) for track in Track.query.all()]
     form.character.choices = [(character.id, character.name) for character in Character.query.all()]
 
-    return render_template("players/listplayers.html", players=players, form=form)
-
-
-@app.route("/players", methods=["POST"])
-@login_required(role="USER")
-def players_create():
-    form = PlayerForm(request.form)
+    if request.method == "GET":
+        return render_template("players/listplayers.html", players=players, form=form)
 
     firstTrack = Track.query.filter_by(id = form.firstTrack.data).first()
     character = Character.query.filter_by(id = form.character.data).first()
     character_id = character.id    
     secondTrack = Track.query.filter_by(id = form.secondTrack.data).first()
 
+    if not character or not firstTrack or not secondTrack or not form.handle.data:        
+        return render_template("players/listplayers.html", players=players, form=form, error="All fields must be filled out")
+
+    handle = Player.query.filter_by(handle=form.handle.data).first()
+    
+    if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
+        return render_template("players/listplayers.html", players=players, form=form, error="Name must be unique and 3-100 characters")
+    
     player = Player(handle=form.handle.data, character_id=character_id)
     
     player.account_id = current_user.id
@@ -42,7 +46,7 @@ def players_create():
     secondTrack.favoritetracks.append(player)
     db.session().commit()
 
-    return redirect(url_for("players_index"))
+    return render_template("players/listplayers.html", players=players, form=form, error="Player successfully added!")
 
 @app.route("/secondtrack/<int:id>")
 @login_required(role="USER")
@@ -74,8 +78,11 @@ def players_statistics_search():
         return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
 
     player = Player.query.filter_by(id = form.handle.data).first()
-    id = player.id 
 
+    if not player:
+        return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
+
+    id = player.id 
     return redirect(url_for("players_statisticsone", id=id))
 
 @app.route("/delete_player/<int:id>", methods=["GET", "POST"])
@@ -102,6 +109,11 @@ def players_updateone(id):
     if request.method == "GET":
         return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle)
     form = PlayerForm(request.form)
+
+    handle = Player.query.filter_by(handle=form.handle.data).first()
+    if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
+        return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle, error="Name must be between 3-100 characters")
+
     player.handle = form.handle.data
     db.session.commit()
 

@@ -28,7 +28,7 @@
               
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('players_index')}} ">Manage players</a>
+              <a class="nav-link" href="{{ url_for('players_create')}} ">Manage players</a>
             </li>
             {% if admin %}
             <li class="nav-item">
@@ -56,7 +56,7 @@
       {% endif %}
     <main role="main" class="container">                    
     {% block body %}
-      
+
     {% endblock %}
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
