@@ -103,6 +103,7 @@ def players_deleteone(id):
     db.engine.execute(stmtFavorite)
     stmtRace = text("DELETE FROM Race WHERE player_id= :id").params(id=id)
     db.engine.execute(stmtRace)
+
     db.session.query(Player).filter_by(id=id).delete()
     db.session.commit()
 
@@ -112,11 +113,13 @@ def players_deleteone(id):
 @login_required(role="USER")
 def players_updateone(id):
     player = Player.query.get(id)
+
     if request.method == "GET":
         return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle)
     form = PlayerForm(request.form)
 
     handle = Player.query.filter_by(handle=form.handle.data).first()
+    
     if len(form.handle.data) < 3 or len(form.handle.data) > 100 or handle:
         return render_template("players/updateplayer.html", form = PlayerForm(), id=id, handle=player.handle, error="Name must be unique and between 3-100 characters")
 

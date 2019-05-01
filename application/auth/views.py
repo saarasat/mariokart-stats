@@ -17,7 +17,7 @@ def index():
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
-        return render_template("index.html", form = form, error = "No such username or password")
+        return render_template("index.html", form=form, error = "No such username or password")
 
     login_user(user)
     return redirect(url_for("index"))
@@ -40,7 +40,7 @@ def auth_create_user():
     if User.query.filter_by(username=username).first():
         return render_template("auth/userform.html", form=form, error = "Username already taken")
 
-    user = User(form.name.data, form.username.data, form.password.data, form.admin.data)
+    user = User(form.name.data, form.username.data, form.password.data)
         
     db.session().add(user)
     db.session().commit()
@@ -120,7 +120,6 @@ def auth_users_updateone():
         newUsername = form.username.data
         newPassword = form.password.data
 
-        
         if User.query.filter_by(username=newUsername).first():
             if current_user.username != newUsername:
                 return render_template("auth/updateuser.html", form=form, error = "Username already taken")
@@ -142,7 +141,7 @@ def auth_users_updateone():
 
         db.session().commit()
 
-        return render_template("auth/updateuser.html", form=form, error = "Updated!", username=newUsername, name=newName)
+        return render_template("auth/updateuser.html", form=form, error = "Account credentials updated!", username=newUsername, name=newName)
 
 
 @app.route("/auth/logout")

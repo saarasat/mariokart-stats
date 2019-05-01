@@ -54,7 +54,6 @@ class Player(Base):
         
         return response
 
-
     @staticmethod
     def player_characters_played(id):
         stmt = text("SELECT Character.name AS Character, COUNT(Race.character_id) AS Races FROM Race"

@@ -13,7 +13,7 @@ class User(Base):
     players = db.relationship("Player", backref='account', lazy=True)
     races = db.relationship("Race", backref='account', lazy=True)
 
-    def __init__(self, name, username, password, admin):
+    def __init__(self, name, username, password):
         self.name = name
         self.username = username
         self.password = password
