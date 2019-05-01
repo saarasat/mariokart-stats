@@ -7,7 +7,7 @@
   <br>
   <form action="{{ url_for('players_statistics_search') }}" method="POST" role="form">
       <div class="form-group" >
-      {{ form.handle(class_='form-control')|safe }}
+      {{ form.handle(class_='form-control') }}
       </div>
       
     <button type="submit" class="btn btn-success">Search</button>

@@ -79,15 +79,15 @@ def players_statistics_search():
         return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
 
     if request.method == "POST":
+
         if not form.handle.data:
             return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
-        player = Player.query.filter_by(id = form.handle.data).first()
-
-        if not player:
+        
+        if not form.handle.choices:
             return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking(), error="Go create some stats first!")
 
-        id = player.id 
-        return redirect(url_for("players_statisticsone", id=id))
+        player = Player.query.filter_by(id=form.handle.data).first()
+        return redirect(url_for("players_statisticsone", id=player.id))
 
     return render_template("players/statisticsSearch.html", form = form, player_ranking=Player.player_ranking())
 
