@@ -75,7 +75,7 @@ SQL (example):
 SQL for both 1 and 2:
 
 <code>
-"SELECT Track.name AS Track,"
+("SELECT Track.name AS Track,"
        " COUNT(Race.track_id) AS Races,"
        " MIN(Race.finish_time) AS BestTime FROM Track" 
        " LEFT JOIN Race ON Track.id = Race.track_id "
@@ -93,7 +93,7 @@ SQL for both 1 and 2:
 <pre>
 SQL
 
-<code>"SELECT SUM(Race.placement) AS Wins FROM Player"
+<code>("SELECT SUM(Race.placement) AS Wins FROM Player"
         " JOIN Race ON Player.id = Race.player_id"
         " WHERE Race.placement = 1 AND Player.id = :id").params(id=id)</code>
 </pre>
@@ -104,7 +104,7 @@ SQL
 <pre>
 SQL (included in this query in the actual application)
 
-<code>"SELECT Track.name AS Track,"
+<code>("SELECT Track.name AS Track,"
         " Race.finish_time AS FinishTime, Character.name AS Character,"
         " Race.placement AS Placement FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
@@ -121,7 +121,7 @@ SQL (included in this query in the actual application)
 SQL
 
 <code>
-"SELECT Character.name AS Character," 
+("SELECT Character.name AS Character," 
         " COUNT(Race.character_id) AS Races FROM Race"
         " JOIN Character ON Race.character_id = Character.id"
         " WHERE player_id = :id AND Race.placement = 1"
@@ -136,7 +136,7 @@ SQL
 SQL
 
 <code>
-"SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
+("SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id AND Race.placement = 1"
         " GROUP BY Track"
@@ -150,7 +150,7 @@ SQL
 SQL (included in this query in the actual application)
 
 <code>
-"SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
+("SELECT Track.name AS Track, COUNT(Race.track_id) AS Races FROM Race"
         " JOIN Track ON Race.track_id = Track.id"
         " WHERE player_id = :id"
         " GROUP BY Track"
@@ -165,7 +165,7 @@ SQL (included in this query in the actual application)
 SQL (included in this query in the actual application)
 
 <code>
-"SELECT Character.name AS Character, COUNT(Race.character_id) AS Races FROM Race"
+("SELECT Character.name AS Character, COUNT(Race.character_id) AS Races FROM Race"
         " JOIN Character ON Race.character_id = Character.id"
         " WHERE player_id = :id AND Race.placement = 1"
         " GROUP BY Character"
