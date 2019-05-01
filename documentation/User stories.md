@@ -12,7 +12,7 @@ SQL (example):
 <code>
 "INSERT INTO account" 
         " (date_created, date_modified, name, username, password)"
-        " VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)," 
+        " VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)", 
         ('New name', 'new user', 'password');</code>
 </pre>
 
@@ -28,7 +28,7 @@ SQL (example):
         " account.name AS account_name," 
         " account.username AS account_username," 
         " account.password AS account_password" 
-        " FROM account WHERE account.id = ?," (1);</code> 
+        " FROM account WHERE account.id = ?", (1);</code> 
 </pre>
       
 3. User can update their account information:
@@ -38,7 +38,7 @@ SQL (example):
 
 <code>
 "UPDATE account SET date_modified=CURRENT_TIMESTAMP,"
-        "name=? WHERE account.id = ?," ('Updated Name', 1);</code>
+        "name=? WHERE account.id = ?", ('Updated Name', 1);</code>
 </pre>
 
 
